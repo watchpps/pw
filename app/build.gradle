@@ -10,7 +10,8 @@ android {
 
     defaultConfig {
         applicationId "com.fongmi.android.tv"
-        minSdk 21
+        // 1. 提升 minSdk 以满足 tvbus 等库的要求 (API 24 为 Android 7.0)
+        minSdk 24
         targetSdk 28
         versionCode 258
         versionName "2.5.8"
@@ -52,9 +53,7 @@ android {
     }
 
     compileOptions {
-        // 1. 开启核心库脱糖支持，解决 hook-release.aar 报错
         coreLibraryDesugaringEnabled true
-        
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
@@ -79,14 +78,13 @@ android {
 }
 
 dependencies {
-    // 2. 添加脱糖专用依赖库
+    // 2. 脱糖库使用 NIO 增强版
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.1.5'
 
+    // 3. 修改此处：只自动包含 JAR。AAR 必须由下面手动指定，防止命名空间冲突
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // 扫描 libs 文件夹
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-
-    // 内部项目模块
+    // 4. 源码项目模块 (这些模块会优先编译并使用)
     implementation project(':hook')
     implementation project(':tvbus')
     implementation project(':zlive')
@@ -99,24 +97,17 @@ dependencies {
     implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
     
-    // 对应 libs 中的 AAR 文件
+    // 5. 仅手动引入那些“没有源码模块对应”的 AAR 文件
+    // 删除了与上面 project 冲突的 hook, tvbus, zlive, ijkplayer 等
     implementation(name: 'danmaku', ext: 'aar')
     implementation(name: 'dfm-release', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')
     implementation(name: 'dlna-dmc-release', ext: 'aar')
     implementation(name: 'dlna-dmr-release', ext: 'aar')
-    implementation(name: 'forcetech-release', ext: 'aar')
-    implementation(name: 'hook-release', ext: 'aar')
-    implementation(name: 'ijkplayer-java-release', ext: 'aar')
-    implementation(name: 'jianpian-release', ext: 'aar')
     implementation(name: 'media3ext-release', ext: 'aar')
-    implementation(name: 'quickjs', ext: 'aar')
-    implementation(name: 'thunder-release', ext: 'aar')
-    implementation(name: 'tvbus-release', ext: 'aar')
     implementation(name: 'wrapper-android-release', ext: 'aar')
-    implementation(name: 'zlive-release', ext: 'aar')
 
-    // 远程库
+    // 6. 远程库
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.room:room-runtime:2.6.1'

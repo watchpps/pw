@@ -29,7 +29,6 @@ android {
         all_abi {
             dimension "abi"
             ndk {
-                // 包含所有 CPU 架构，生成真正的 Universal 通用版
                 abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
             }
         }
@@ -57,7 +56,6 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
-    // 重新定制命名逻辑，确保 GitHub Actions 输出的文件名正确
     android.applicationVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
             def mode = variant.productFlavors[0].name
@@ -78,10 +76,10 @@ android {
 }
 
 dependencies {
-    // 1. 自动包含 libs 目录下所有的 jar 和 aar
-    implementation fileTree(dir: 'libs', include: ['*.jar', ['*.aar']])
+    // 1. 修正后的 fileTree 语法
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
-    // 2. 内部模块项目依赖
+    // 2. 项目模块依赖
     implementation project(':hook')
     implementation project(':tvbus')
     implementation project(':zlive')
@@ -94,7 +92,7 @@ dependencies {
     implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
     
-    // 3. 显式声明本地 AAR (严格对应你截图里已有的文件)
+    // 3. 严格对应你 libs 文件夹中已有的文件名
     implementation(name: 'danmaku', ext: 'aar')
     implementation(name: 'dfm-release', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')
@@ -140,15 +138,12 @@ dependencies {
     implementation 'org.nanohttpd:nanohttpd:2.3.1'
     implementation('org.simpleframework:simple-xml:2.7.1') { exclude group: 'stax', module: 'stax-api' exclude group: 'xpp3', module: 'xpp3' }
 
-    // 5. 分平台依赖
     leanbackImplementation 'androidx.leanback:leanback:1.2.0-alpha04'
     leanbackImplementation 'com.github.hedzr:android-file-chooser:v1.2.0-final'
     leanbackImplementation 'com.github.JessYanCoding:AndroidAutoSize:1.2.1'
     mobileImplementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     mobileImplementation 'com.google.android.flexbox:flexbox:3.0.0'
     mobileImplementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }
-
-    // 6. 注解处理器
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 }

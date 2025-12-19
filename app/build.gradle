@@ -29,7 +29,7 @@ android {
         all_abi {
             dimension "abi"
             ndk {
-                // 包含所有架构，生成 Universal 通用版
+                // 包含所有 CPU 架构，生成真正的 Universal 通用版
                 abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
             }
         }
@@ -57,7 +57,7 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
-    // 优化输出文件名
+    // 重新定制命名逻辑，确保 GitHub Actions 输出的文件名正确
     android.applicationVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
             def mode = variant.productFlavors[0].name
@@ -65,9 +65,6 @@ android {
             outputFileName = "TVBox_${mode}_${api}_Universal_${variant.versionName}.apk"
         }
     }
-
-    // --- 修改点：移除了针对 x5.tbs.apk 的 delete 逻辑 ---
-    // 这样即便 assets 目录是空的，编译也不会报错
 
     configurations.configureEach {
         resolutionStrategy {
@@ -80,11 +77,13 @@ android {
     }
 }
 
+// 注意：这里不要写 repositories { flatDir... }，因为已经统一在 settings.gradle 中定义了
 
 dependencies {
-    // 自动扫描 libs 文件夹
+    // 1. 自动包含 libs 目录下所有的本地文件
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
+    // 2. 内部模块项目依赖
     implementation project(':hook')
     implementation project(':tvbus')
     implementation project(':zlive')
@@ -97,6 +96,7 @@ dependencies {
     implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
     
+    // 3. 第三方远程依赖
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.room:room-runtime:2.6.1'
@@ -125,10 +125,10 @@ dependencies {
     implementation 'org.fourthline.cling:cling-core:2.1.2-SNAPSHOT'
     implementation 'org.fourthline.cling:cling-support:2.1.2-SNAPSHOT'
     implementation 'org.greenrobot:eventbus:3.3.1'
-    implementation 'org.nanohttpd:nanohttpd:2.3.1'
+    implementation 'org.nanohttpd:nanohttpd:2.2.0' // 建议保持原版版本以防冲突
     implementation('org.simpleframework:simple-xml:2.7.1') { exclude group: 'stax', module: 'stax-api' exclude group: 'xpp3', module: 'xpp3' }
 
-    // 显式声明本地 AAR 库
+    // 4. 显式声明本地 AAR（这些文件必须存在于 app/libs/ 文件夹中）
     implementation(name: 'danmaku', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')
     implementation(name: 'dlna-dmc-release', ext: 'aar')
@@ -149,12 +149,15 @@ dependencies {
     implementation(name: 'lib-extractor-release', ext: 'aar')
     implementation(name: 'lib-ui-release', ext: 'aar')
 
+    // 5. 分平台依赖
     leanbackImplementation 'androidx.leanback:leanback:1.2.0-alpha04'
     leanbackImplementation 'com.github.hedzr:android-file-chooser:v1.2.0-final'
     leanbackImplementation 'com.github.JessYanCoding:AndroidAutoSize:1.2.1'
     mobileImplementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     mobileImplementation 'com.google.android.flexbox:flexbox:3.0.0'
     mobileImplementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }
+
+    // 6. 注解处理器
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 }

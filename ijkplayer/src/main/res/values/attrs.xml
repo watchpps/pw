@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <attr name="keep_content_on_player_reset" format="boolean" />
-    <attr name="default_artwork" format="reference"/>
-
     <declare-styleable name="IjkVideoView">
-        <attr name="keep_content_on_player_reset" />
-        <attr name="default_artwork"/>
+        <attr name="auto_show" format="boolean" />
+        <attr name="resize_mode" format="enum">
+            <enum name="fit" value="0" />
+            <enum name="fixed_width" value="1" />
+            <enum name="fixed_height" value="2" />
+            <enum name="fill" value="3" />
+            <enum name="zoom" value="4" />
+        </attr>
+        <attr name="use_artwork" format="boolean" />
+        <attr name="use_controller" format="boolean" />
+        <attr name="animation_enabled" format="boolean" />
+        <attr name="default_artwork" format="reference" />
+        <attr name="keep_content_on_player_reset" format="boolean" />
     </declare-styleable>
-
 </resources>

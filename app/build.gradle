@@ -50,6 +50,13 @@ android {
 
     packagingOptions {
         exclude 'META-INF/beans.xml'
+        
+        // 2. 解决底层 .so 库冲突 (针对 libavcodec 等重复文件)
+        pickFirst 'lib/*/libavcodec.so'
+        pickFirst 'lib/*/libavformat.so'
+        pickFirst 'lib/*/libavutil.so'
+        pickFirst 'lib/*/libswresample.so'
+        pickFirst 'lib/*/libswscale.so'
     }
 
     compileOptions {
@@ -78,13 +85,13 @@ android {
 }
 
 dependencies {
-    // 2. 脱糖库使用 NIO 增强版
+    // 3. 脱糖库使用 NIO 增强版
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.1.5'
 
-    // 3. 修改此处：只自动包含 JAR。AAR 必须由下面手动指定，防止命名空间冲突
+    // 只自动包含 JAR
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // 4. 源码项目模块 (这些模块会优先编译并使用)
+    // 4. 源码项目模块
     implementation project(':hook')
     implementation project(':tvbus')
     implementation project(':zlive')
@@ -97,8 +104,7 @@ dependencies {
     implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
     
-    // 5. 仅手动引入那些“没有源码模块对应”的 AAR 文件
-    // 删除了与上面 project 冲突的 hook, tvbus, zlive, ijkplayer 等
+    // 5. 引入没有源码冲突的本地 AAR
     implementation(name: 'danmaku', ext: 'aar')
     implementation(name: 'dfm-release', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')

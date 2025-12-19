@@ -2,13 +2,6 @@
 <resources>
     <declare-styleable name="IjkVideoView">
         <attr name="auto_show" format="boolean" />
-        <attr name="resize_mode" format="enum">
-            <enum name="fit" value="0" />
-            <enum name="fixed_width" value="1" />
-            <enum name="fixed_height" value="2" />
-            <enum name="fill" value="3" />
-            <enum name="zoom" value="4" />
-        </attr>
         <attr name="use_artwork" format="boolean" />
         <attr name="use_controller" format="boolean" />
         <attr name="animation_enabled" format="boolean" />
@@ -34,6 +27,14 @@
         <attr name="played_color" format="color" />
         <attr name="scrubber_color" format="color" />
         <attr name="buffered_color" format="color" />
+        <attr name="unplayed_color" format="color" />
+        <attr name="ad_marker_color" format="color" />
+        <attr name="played_ad_marker_color" format="color" />
+    </declare-styleable>
+
+    <attr name="player_layout_id" format="reference" />
+    <attr name="controller_layout_id" format="reference" />
+</resources>
         <attr name="unplayed_color" format="color" />
         <attr name="ad_marker_color" format="color" />
         <attr name="played_ad_marker_color" format="color" />

@@ -2,24 +2,22 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
-        jcenter()
         google()
+        jcenter()
     }
 }
 dependencyResolutionManagement {
-    // 允许在项目 build.gradle 中定义仓库，这样兼容性最强
+    // 强制使用 settings 中的仓库配置，解决子模块找不到库的问题
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
+        google()
         mavenCentral()
         jcenter()
-        google()
-        // 修改路径写法，确保 app 模块和 quickjs 模块的本地库都能找到
+        // 覆盖所有可能存放 aar 的目录
         flatDir {
-            dirs 'app/libs', 'quickjs/libs'
+            dirs 'app/libs', 'quickjs/libs', 'catvod/libs'
         }
-        maven {
-            url "https://jitpack.io"
-        }
+        maven { url "https://jitpack.io" }
         maven {
             url "http://4thline.org/m2"
             allowInsecureProtocol = true

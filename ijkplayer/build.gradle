@@ -31,7 +31,12 @@ dependencies {
     // 2. 项目模块依赖
     implementation project(':catvod')
 
-    // 3. 基础 AndroidX 支持（防止编译 IjkVideoView 时找不到最基础的 View 类）
+    // 3. 基础 AndroidX 支持
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.annotation:annotation:1.8.0'
+
+    // 4. 关键修改：添加 Media3 依赖，供 IjkSubtitleView 使用
+    def media3_version = "1.4.1"
+    implementation "androidx.media3:media3-ui:$media3_version"
+    implementation "androidx.media3:media3-common:$media3_version"
 }

@@ -12,11 +12,26 @@ android {
         targetSdk 28
     }
 
+    // 允许项目包含本地 AAR
+    repositories {
+        flatDir {
+            dirs 'libs', '../app/libs'
+        }
+    }
+
     lint {
         disable 'UnsafeOptInUsageError'
     }
 }
 
 dependencies {
+    // 1. 扫描本地 libs
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+
+    // 2. 项目模块依赖
     implementation project(':catvod')
-    }
+
+    // 3. 基础 AndroidX 支持（防止编译 IjkVideoView 时找不到最基础的 View 类）
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.annotation:annotation:1.8.0'
+}

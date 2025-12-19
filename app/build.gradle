@@ -10,7 +10,6 @@ android {
 
     defaultConfig {
         applicationId "com.fongmi.android.tv"
-        // 1. 提升 minSdk 以满足 tvbus 等库的要求 (API 24 为 Android 7.0)
         minSdk 24
         targetSdk 28
         versionCode 258
@@ -48,23 +47,17 @@ android {
         }
     }
 
-        packagingOptions {
+    packagingOptions {
         exclude 'META-INF/beans.xml'
         
-        // 1. 处理所有 FFmpeg 相关的 SO 文件冲突
+        // 处理 FFmpeg 和 Media3 扩展的 SO 文件冲突
         pickFirst 'lib/*/libavcodec.so'
         pickFirst 'lib/*/libavformat.so'
         pickFirst 'lib/*/libavutil.so'
         pickFirst 'lib/*/libswresample.so'
         pickFirst 'lib/*/libswscale.so'
-        
-        // 2. 处理 Media3 扩展库的 SO 文件冲突（解决本次报错的关键）
         pickFirst 'lib/*/libmedia3ext.so'
-        
-        // 3. 兜底策略：如果未来还有其他 .so 冲突，优先选择第一个找到的
-        // pickFirst 'lib/*/*.so' // 如果还有其他冲突，可以取消这一行的注释
     }
-
 
     compileOptions {
         coreLibraryDesugaringEnabled true
@@ -92,13 +85,11 @@ android {
 }
 
 dependencies {
-    // 3. 脱糖库使用 NIO 增强版
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.1.5'
 
-    // 只自动包含 JAR
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // 4. 源码项目模块
+    // 源码模块
     implementation project(':hook')
     implementation project(':tvbus')
     implementation project(':zlive')
@@ -111,19 +102,31 @@ dependencies {
     implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
     
-    // 5. 引入没有源码冲突的本地 AAR
+    // 本地 AAR (已移除冲突的 danmaku, wrapper, media3ext-release)
     implementation(name: 'dfm-release', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')
     implementation(name: 'dlna-dmc-release', ext: 'aar')
     implementation(name: 'dlna-dmr-release', ext: 'aar')
     
-    // 6. 远程库
+    // 远程库 - 核心 AndroidX 组件
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.room:room-runtime:2.6.1'
     implementation 'androidx.media:media:1.7.0'
+
+    // 远程库 - 显式引入 Media3 组件 (确保 ExoPlayer 类可见)
+    def media3_version = "1.4.1"
+    implementation "androidx.media3:media3-exoplayer:$media3_version"
+    implementation "androidx.media3:media3-ui:$media3_version"
+    implementation "androidx.media3:media3-common:$media3_version"
+    implementation "androidx.media3:media3-session:$media3_version"
+    implementation "androidx.media3:media3-datasource:$media3_version"
+    
+    // 远程库 - 播放扩展 (不再 exclude 以防基础库丢失)
+    implementation 'com.github.anilbeesetti.nextlib:nextlib-media3ext:0.8.2'
+
+    // 其他第三方库
     implementation 'cat.ereza:customactivityoncrash:2.4.0'
-    implementation('com.github.anilbeesetti.nextlib:nextlib-media3ext:0.8.2') { exclude group: 'androidx.media3', module: 'media3-exoplayer' }
     implementation 'com.github.bassaer:materialdesigncolors:1.0.0'
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     implementation 'com.github.bumptech.glide:annotations:4.16.0'

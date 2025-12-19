@@ -52,6 +52,9 @@ android {
     }
 
     compileOptions {
+        // 1. 开启核心库脱糖支持，解决 hook-release.aar 报错
+        coreLibraryDesugaringEnabled true
+        
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
@@ -76,10 +79,13 @@ android {
 }
 
 dependencies {
-    // 1. 扫描 libs 文件夹
+    // 2. 添加脱糖专用依赖库
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.3'
+
+    // 扫描 libs 文件夹
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
-    // 2. 内部项目模块
+    // 内部项目模块
     implementation project(':hook')
     implementation project(':tvbus')
     implementation project(':zlive')
@@ -92,7 +98,7 @@ dependencies {
     implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
     
-    // 3. 严格对应你 libs 截图中的文件名 (已移除 lib-common-release 等缺失文件)
+    // 对应 libs 中的 AAR 文件
     implementation(name: 'danmaku', ext: 'aar')
     implementation(name: 'dfm-release', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')
@@ -109,7 +115,7 @@ dependencies {
     implementation(name: 'wrapper-android-release', ext: 'aar')
     implementation(name: 'zlive-release', ext: 'aar')
 
-    // 4. 远程库
+    // 远程库
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.room:room-runtime:2.6.1'

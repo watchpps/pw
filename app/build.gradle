@@ -76,10 +76,10 @@ android {
 }
 
 dependencies {
-    // 1. 修正后的 fileTree 语法
+    // 1. 扫描 libs 文件夹
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
-    // 2. 项目模块依赖
+    // 2. 内部项目模块
     implementation project(':hook')
     implementation project(':tvbus')
     implementation project(':zlive')
@@ -92,7 +92,7 @@ dependencies {
     implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
     
-    // 3. 严格对应你 libs 文件夹中已有的文件名
+    // 3. 严格对应你 libs 截图中的文件名 (已移除 lib-common-release 等缺失文件)
     implementation(name: 'danmaku', ext: 'aar')
     implementation(name: 'dfm-release', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')
@@ -100,13 +100,16 @@ dependencies {
     implementation(name: 'dlna-dmr-release', ext: 'aar')
     implementation(name: 'forcetech-release', ext: 'aar')
     implementation(name: 'hook-release', ext: 'aar')
+    implementation(name: 'ijkplayer-java-release', ext: 'aar')
     implementation(name: 'jianpian-release', ext: 'aar')
+    implementation(name: 'media3ext-release', ext: 'aar')
+    implementation(name: 'quickjs', ext: 'aar')
     implementation(name: 'thunder-release', ext: 'aar')
     implementation(name: 'tvbus-release', ext: 'aar')
     implementation(name: 'wrapper-android-release', ext: 'aar')
     implementation(name: 'zlive-release', ext: 'aar')
 
-    // 4. 远程第三方库
+    // 4. 远程库
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.room:room-runtime:2.6.1'

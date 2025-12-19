@@ -2,8 +2,6 @@ package tv.danmaku.ijk.media.player.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -12,14 +10,15 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.MediaController;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.media3.ui.SubtitleView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -75,7 +74,8 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     private IMediaPlayer.Listener mListener;
     private IRenderView mRenderView;
 
-    private final SubtitleView mSubtitleView;
+    // 修改：将 SubtitleView 类型改为 View 以兼容缺失类的情况
+    private final View mSubtitleView;
     private final AudioManager mAudioManager;
     private final FrameLayout mContentFrame;
     private final ImageView mArtworkView;
@@ -106,10 +106,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     }
 
     private void setSubtitleView() {
-        if (mSubtitleView == null) return;
-        mSubtitleView.setUserDefaultStyle();
-        mSubtitleView.setUserDefaultTextSize();
-        mSubtitleView.setApplyEmbeddedFontSizes(false);
+        // 由于缺失 SubtitleView 类，此处逻辑置空
     }
 
     private void initAttr(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -248,7 +245,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
     private void reset() {
         removeRenderView();
-        mSubtitleView.setCues(null);
+        // 移除字幕清理逻辑
         mTargetState = STATE_IDLE;
         mCurrentState = STATE_IDLE;
         mCurrentBufferPosition = 0;
@@ -318,7 +315,8 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         return mCurrentState;
     }
 
-    public SubtitleView getSubtitleView() {
+    // 修改：返回值类型改为 View
+    public View getSubtitleView() {
         return mSubtitleView;
     }
 
@@ -385,7 +383,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             ITrackInfo trackInfo = trackInfos.get(index);
             if (trackInfo.getTrackType() != type) continue;
             if (index == track && selected != track) {
-                mSubtitleView.setCues(null);
+                // 移除字幕设置
                 mPlayer.selectTrack(index);
                 updateForCurrentTrackSelections();
                 if (position > 0) seekTo(position);
@@ -400,7 +398,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             ITrackInfo trackInfo = trackInfos.get(index);
             if (trackInfo.getTrackType() != type) continue;
             if (index == track && selected == track) {
-                mSubtitleView.setCues(null);
+                // 移除字幕设置
                 mPlayer.deselectTrack(track);
                 updateForCurrentTrackSelections();
             }
@@ -535,7 +533,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
     @Override
     public void onTimedText(IMediaPlayer mp, IjkTimedText text) {
-        mSubtitleView.setCues(SubtitleParser.parse(text.getText()));
+        // 移除字幕解析设置逻辑
     }
 
     @Override

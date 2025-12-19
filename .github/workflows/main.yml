@@ -22,30 +22,30 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    # --- 新增步骤：安装 Python 3.10 ---
     - name: Set up Python 3.10
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
-    # -------------------------------
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    # --- 修改点：指定具体的编译任务名，解决 Ambiguous 错误 ---
     - name: Build Leanback Release APK
-      run: ./gradlew assembleLeanbackRelease
+      run: ./gradlew assembleLeanbackJavaRelease
 
     - name: Build Mobile Release APK
-      run: ./gradlew assembleMobileRelease
+      run: ./gradlew assembleMobileJavaRelease
+    # --------------------------------------------------
 
     - name: Upload Leanback APK
       uses: actions/upload-artifact@v4
       with:
         name: TVBox-Leanback-Release
-        path: app/build/outputs/apk/leanback/release/*.apk
+        path: app/build/outputs/apk/leanback/java/release/*.apk
 
     - name: Upload Mobile APK
       uses: actions/upload-artifact@v4
       with:
         name: TVBox-Mobile-Release
-        path: app/build/outputs/apk/mobile/release/*.apk
+        path: app/build/outputs/apk/mobile/java/release/*.apk

@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.media3.common.Cue;
+import androidx.media3.ui.SubtitleView; // 确保显式导入官方类
 import java.util.List;
 
 /**
@@ -24,12 +25,18 @@ public class IjkSubtitleView extends FrameLayout {
     }
 
     public IjkSubtitleView(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    public IjkSubtitleView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
+        // 初始化官方的 SubtitleView
         this.internalView = new SubtitleView(context, attrs);
+        // 将官方 View 撑满整个父容器
         addView(internalView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
 
@@ -49,13 +56,19 @@ public class IjkSubtitleView extends FrameLayout {
 
     public void addTextSize(float fraction) {
         this.textSize += fraction;
-        // 假设默认大小为 20sp
-        internalView.setFixedTextSize(TypedValue.COMPLEX_UNIT_SP, 20 * textSize);
+        if (this.textSize > 3.0f) this.textSize = 3.0f; // 限制最大缩放
+        updateTextSize();
     }
 
     public void subTextSize(float fraction) {
         this.textSize -= fraction;
-        internalView.setFixedTextSize(TypedValue.COMPLEX_UNIT_SP, 20 * textSize);
+        if (this.textSize < 0.5f) this.textSize = 0.5f; // 限制最小缩放
+        updateTextSize();
+    }
+
+    private void updateTextSize() {
+        // 使用 18sp 作为基准字号进行缩放
+        internalView.setFixedTextSize(TypedValue.COMPLEX_UNIT_SP, 18 * textSize);
     }
 
     public float getTextSize() {
@@ -70,6 +83,7 @@ public class IjkSubtitleView extends FrameLayout {
 
     public void addBottomPadding(float fraction) {
         this.bottomPadding += fraction;
+        if (this.bottomPadding > 0.5f) this.bottomPadding = 0.5f; // 限制最大边距
         updatePadding();
     }
 
@@ -78,7 +92,9 @@ public class IjkSubtitleView extends FrameLayout {
     }
 
     private void updatePadding() {
-        // 通过设置 internalView 的 padding 来实现位置偏移
-        internalView.setPadding(0, 0, 0, (int) (getResources().getDisplayMetrics().heightPixels * bottomPadding));
+        // 通过设置 internalView 的底边距来实现字幕位置上移
+        // getResources().getDisplayMetrics().heightPixels 获取屏幕总高度
+        int paddingBottom = (int) (getResources().getDisplayMetrics().heightPixels * bottomPadding);
+        internalView.setPadding(0, 0, 0, paddingBottom);
     }
 }

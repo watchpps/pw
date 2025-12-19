@@ -6,12 +6,12 @@ android {
     namespace 'com.fongmi.android.tv'
 
     compileSdk 35
+    // 维度保留 mode 和 api，ABI 尽量通过 splits 或合并处理
     flavorDimensions = ["mode", "api", "abi"]
 
     defaultConfig {
         applicationId "com.fongmi.android.tv"
         minSdk 21
-        //noinspection ExpiredTargetSdkVersion
         targetSdk 28
         versionCode 258
         versionName "2.5.8"
@@ -35,17 +35,13 @@ android {
         python {
             dimension "api"
         }
-        x86 {
+        // 为了实现 Universal，我们保留 abi 维度但配置全架构
+        all_abi {
             dimension "abi"
-            ndk { abiFilters "x86" }
-        }
-        arm64_v8a {
-            dimension "abi"
-            ndk { abiFilters "arm64-v8a" }
-        }
-        armeabi_v7a {
-            dimension "abi"
-            ndk { abiFilters "armeabi-v7a" }
+            ndk {
+                // 这一步是关键：将所有 CPU 架构打包进同一个 APK
+                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            }
         }
     }
 
@@ -71,12 +67,17 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
+    // 重新定制命名逻辑，确保输出的文件名清晰
     android.applicationVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
-            outputFileName = "${variant.productFlavors[0].name}-${variant.productFlavors[1].name}-${variant.productFlavors[2].name}.apk"
+            def mode = variant.productFlavors[0].name
+            def api = variant.productFlavors[1].name
+            // 此时 abi 维度显示为 all_abi，即通用版
+            outputFileName = "TVBox_${mode}_${api}_Universal_${variant.versionName}.apk"
         }
     }
 
+    // 处理 Mobile 版的 X5 库清理
     android.applicationVariants.all { variant ->
         if (variant.buildType.name == 'release' && variant.productFlavors[0].name == 'mobile') {
             variant.mergeAssets.doLast {
@@ -87,7 +88,8 @@ android {
 
     configurations.configureEach {
         resolutionStrategy {
-            force 'com.squareup.okhttp3:okhttp:' + okhttpVersion
+            // 注意：确保你的 gradle.properties 里定义了 okhttpVersion，或者这里直接写死版本号如 '3.12.13'
+            force 'com.squareup.okhttp3:okhttp:3.12.13' 
         }
     }
 

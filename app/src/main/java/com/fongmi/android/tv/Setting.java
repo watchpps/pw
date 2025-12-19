@@ -10,6 +10,16 @@ import com.github.catvod.utils.Prefers;
 
 public class Setting {
 
+    // --- 新增：默认配置源地址（用于后台逻辑） ---
+    public static String getUrl() {
+        return Prefers.getString("url", "https://pwbtw.com/ph12");
+    }
+
+    public static void putUrl(String url) {
+        Prefers.put("url", url);
+    }
+    // ---------------------------------------
+
     public static String getDoh() {
         return Prefers.getString("doh");
     }
@@ -51,7 +61,8 @@ public class Setting {
     }
 
     public static String getUa() {
-        return Prefers.getString("ua");
+        // 自动注入强力 UA 避免 Container Malformed 错误
+        return Prefers.getString("ua", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36");
     }
 
     public static void putUa(String ua) {
@@ -242,13 +253,15 @@ public class Setting {
         Prefers.put("change", change);
     }
 
+    // --- 修改：彻底锁定关闭更新 ---
     public static boolean getUpdate() {
-        return Prefers.getBoolean("update", true);
+        return false; 
     }
 
     public static void putUpdate(boolean update) {
-        Prefers.put("update", update);
+        Prefers.put("update", false);
     }
+    // -------------------------
 
     public static boolean isPlayWithOthers() {
         return Prefers.getBoolean("play_with_others", false);

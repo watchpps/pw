@@ -756,15 +756,13 @@ public class LiveActivity extends BaseActivity implements Clock.Callback, Custom
     }
 
     @Override
-    public void onTrackClick(Track item) {
+    public void onSubtitleClick() {
+    App.post(this::hideControl, 200);
+    // 关键：强制转换为 IjkSubtitleView
+    tv.danmaku.ijk.media.player.ui.IjkSubtitleView subtitleView = (tv.danmaku.ijk.media.player.ui.IjkSubtitleView) (mPlayers.isIjk() ? getIjk().getSubtitleView() : getExo().getSubtitleView());
+    App.post(() -> SubtitleDialog.create().view(subtitleView).full(true).show(this), 200);
     }
 
-    @Override
-    public void onSubtitleClick() {
-        App.post(this::hideControl, 200);
-        SubtitleView subtitleView = mPlayers.isIjk() ? getIjk().getSubtitleView() : getExo().getSubtitleView();
-        App.post(() -> SubtitleDialog.create().view(subtitleView).full(true).show(this), 200);
-    }
 
     @Override
     public void onTimeChanged() {

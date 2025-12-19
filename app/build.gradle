@@ -112,7 +112,6 @@ dependencies {
     pythonImplementation project(':pyramid')
     
     // 5. 引入没有源码冲突的本地 AAR
-    implementation(name: 'danmaku', ext: 'aar')
     implementation(name: 'dfm-release', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')
     implementation(name: 'dlna-dmc-release', ext: 'aar')

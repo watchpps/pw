@@ -48,16 +48,23 @@ android {
         }
     }
 
-    packagingOptions {
+        packagingOptions {
         exclude 'META-INF/beans.xml'
         
-        // 2. 解决底层 .so 库冲突 (针对 libavcodec 等重复文件)
+        // 1. 处理所有 FFmpeg 相关的 SO 文件冲突
         pickFirst 'lib/*/libavcodec.so'
         pickFirst 'lib/*/libavformat.so'
         pickFirst 'lib/*/libavutil.so'
         pickFirst 'lib/*/libswresample.so'
         pickFirst 'lib/*/libswscale.so'
+        
+        // 2. 处理 Media3 扩展库的 SO 文件冲突（解决本次报错的关键）
+        pickFirst 'lib/*/libmedia3ext.so'
+        
+        // 3. 兜底策略：如果未来还有其他 .so 冲突，优先选择第一个找到的
+        // pickFirst 'lib/*/*.so' // 如果还有其他冲突，可以取消这一行的注释
     }
+
 
     compileOptions {
         coreLibraryDesugaringEnabled true

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import tv.danmaku.ijk.media.player.ui.IjkSubtitleView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

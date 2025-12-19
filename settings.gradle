@@ -7,13 +7,15 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // 允许在项目 build.gradle 中定义仓库，这样兼容性最强
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         mavenCentral()
         jcenter()
         google()
+        // 修改路径写法，确保 app 模块和 quickjs 模块的本地库都能找到
         flatDir {
-            dirs "$rootDir/app/libs", "$rootDir/quickjs/libs"
+            dirs 'app/libs', 'quickjs/libs'
         }
         maven {
             url "https://jitpack.io"

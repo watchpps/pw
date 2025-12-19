@@ -79,9 +79,9 @@ android {
 
 dependencies {
     // 1. 自动包含 libs 目录下所有的 jar 和 aar
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar', ['*.aar']])
 
-    // 2. 内部模块项目依赖 (保持不变)
+    // 2. 内部模块项目依赖
     implementation project(':hook')
     implementation project(':tvbus')
     implementation project(':zlive')
@@ -94,7 +94,7 @@ dependencies {
     implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
     
-    // 3. 显式声明本地 AAR (严格对应你截图中的文件名)
+    // 3. 显式声明本地 AAR (严格对应你截图里已有的文件)
     implementation(name: 'danmaku', ext: 'aar')
     implementation(name: 'dfm-release', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')
@@ -108,24 +108,37 @@ dependencies {
     implementation(name: 'wrapper-android-release', ext: 'aar')
     implementation(name: 'zlive-release', ext: 'aar')
 
-    // 4. 【重要】如果这些文件不在你的 libs 列表里，请确保你已经把它们上传了
-    // 如果下面这些文件你的 libs 文件夹里确实没有，请删除这些行，或者把文件找回来放进去
-    implementation(name: 'lib-common-release', ext: 'aar')
-    implementation(name: 'lib-container-release', ext: 'aar')
-    implementation(name: 'lib-database-release', ext: 'aar')
-    implementation(name: 'lib-datasource-release', ext: 'aar')
-    implementation(name: 'lib-datasource-okhttp-release', ext: 'aar')
-    implementation(name: 'lib-datasource-rtmp-release', ext: 'aar')
-    implementation(name: 'lib-decoder-release', ext: 'aar')
-    implementation(name: 'lib-decoder-av1-release', ext: 'aar')
-    implementation(name: 'lib-exoplayer-release', ext: 'aar')
-    implementation(name: 'lib-exoplayer-dash-release', ext: 'aar')
-    implementation(name: 'lib-exoplayer-hls-release', ext: 'aar')
-    implementation(name: 'lib-exoplayer-rtsp-release', ext: 'aar')
-    implementation(name: 'lib-exoplayer-smoothstreaming-release', ext: 'aar')
-    implementation(name: 'lib-extractor-release', ext: 'aar')
-    implementation(name: 'lib-ui-release', ext: 'aar')
-
+    // 4. 远程第三方库
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.biometric:biometric:1.1.0'
+    implementation 'androidx.room:room-runtime:2.6.1'
+    implementation 'androidx.media:media:1.7.0'
+    implementation 'cat.ereza:customactivityoncrash:2.4.0'
+    implementation('com.github.anilbeesetti.nextlib:nextlib-media3ext:0.8.2') { exclude group: 'androidx.media3', module: 'media3-exoplayer' }
+    implementation 'com.github.bassaer:materialdesigncolors:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation 'com.github.bumptech.glide:annotations:4.16.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.16.0'
+    implementation 'com.github.jahirfiquitiva:TextDrawable:1.0.3'
+    implementation 'com.github.thegrizzlylabs:sardine-android:0.9'
+    implementation 'com.github.YarikSOffice:lingver:1.3.0'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'com.google.net.cronet:cronet-okhttp:0.1.0'
+    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.guolindev.permissionx:permissionx:1.8.0'
+    implementation 'com.hierynomus:smbj:0.13.0'
+    implementation 'com.tencent.tbs:tbssdk:44286'
+    implementation 'io.antmedia:rtmp-client:3.2.0'
+    implementation 'javax.servlet:javax.servlet-api:3.1.0'
+    implementation 'org.chromium.net:cronet-embedded:76.3809.111'
+    implementation 'org.eclipse.jetty:jetty-client:8.1.22.v20160922'
+    implementation('org.eclipse.jetty:jetty-server:8.1.22.v20160922') { exclude group: 'org.eclipse.jetty.orbit', module: 'javax.servlet' }
+    implementation('org.eclipse.jetty:jetty-servlet:8.1.22.v20160922') { exclude group: 'org.eclipse.jetty.orbit', module: 'javax.servlet' }
+    implementation 'org.fourthline.cling:cling-core:2.1.2-SNAPSHOT'
+    implementation 'org.fourthline.cling:cling-support:2.1.2-SNAPSHOT'
+    implementation 'org.greenrobot:eventbus:3.3.1'
+    implementation 'org.nanohttpd:nanohttpd:2.3.1'
+    implementation('org.simpleframework:simple-xml:2.7.1') { exclude group: 'stax', module: 'stax-api' exclude group: 'xpp3', module: 'xpp3' }
 
     // 5. 分平台依赖
     leanbackImplementation 'androidx.leanback:leanback:1.2.0-alpha04'

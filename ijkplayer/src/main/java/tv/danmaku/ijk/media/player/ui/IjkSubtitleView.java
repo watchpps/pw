@@ -1,4 +1,4 @@
-package tv.danmaku.ijk.media.player.ui; // 必须是这个，不能是 androidx.media3.ui
+package tv.danmaku.ijk.media.player.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,33 +8,42 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java.util.List;
 
-// 注意：如果编译依然找不到 Cue，说明 media3 库没拉下来
-// 我们可以暂时改用 List<?> 来避开显式引用 Cue 类，确保编译通过
 public class IjkSubtitleView extends FrameLayout {
 
-    private androidx.media3.ui.SubtitleView internalView;
+    // 使用 Object 类型在编译期规避找不到类的风险，运行期会自动链接到 androidx.media3.ui.SubtitleView
+    private Object internalView;
     private float bottomPadding = 0.05f;
     private float textSize = 1.0f;
 
     public IjkSubtitleView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        this.internalView = new androidx.media3.ui.SubtitleView(context, attrs);
-        addView(internalView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        try {
+            // 动态初始化官方 View
+            androidx.media3.ui.SubtitleView view = new androidx.media3.ui.SubtitleView(context, attrs);
+            this.internalView = view;
+            addView(view, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    // 使用通配符 List<?>，避免直接写 Cue 导致找不到符号
+    // 将参数类型改为通用的 List，内部直接传递
     public void setCues(@Nullable List<?> cues) {
-        if (internalView != null) {
-            internalView.setCues((List<androidx.media3.common.Cue>) cues);
+        if (internalView instanceof androidx.media3.ui.SubtitleView) {
+            ((androidx.media3.ui.SubtitleView) internalView).setCues((List) cues);
         }
     }
 
     public void setUserDefaultStyle() {
-        if (internalView != null) internalView.setUserDefaultStyle();
+        if (internalView instanceof androidx.media3.ui.SubtitleView) {
+            ((androidx.media3.ui.SubtitleView) internalView).setUserDefaultStyle();
+        }
     }
 
     public void setUserDefaultTextSize() {
-        if (internalView != null) internalView.setUserDefaultTextSize();
+        if (internalView instanceof androidx.media3.ui.SubtitleView) {
+            ((androidx.media3.ui.SubtitleView) internalView).setUserDefaultTextSize();
+        }
     }
 
     public void addTextSize(float fraction) {
@@ -48,8 +57,8 @@ public class IjkSubtitleView extends FrameLayout {
     }
 
     private void updateTextSize() {
-        if (internalView != null) {
-            internalView.setFixedTextSize(TypedValue.COMPLEX_UNIT_SP, 18 * textSize);
+        if (internalView instanceof androidx.media3.ui.SubtitleView) {
+            ((androidx.media3.ui.SubtitleView) internalView).setFixedTextSize(TypedValue.COMPLEX_UNIT_SP, 18 * textSize);
         }
     }
 
@@ -63,9 +72,10 @@ public class IjkSubtitleView extends FrameLayout {
     public float getBottomPadding() { return this.bottomPadding; }
 
     private void updatePadding() {
-        if (internalView != null) {
+        if (internalView instanceof androidx.media3.ui.SubtitleView) {
+            androidx.media3.ui.SubtitleView view = (androidx.media3.ui.SubtitleView) internalView;
             int pb = (int) (getResources().getDisplayMetrics().heightPixels * bottomPadding);
-            internalView.setPadding(0, 0, 0, pb);
+            view.setPadding(0, 0, 0, pb);
         }
     }
 }

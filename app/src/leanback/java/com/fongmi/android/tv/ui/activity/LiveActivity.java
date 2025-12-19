@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.KeyEvent;
 import android.view.View;
+import tv.danmaku.ijk.media.player.ui.IjkSubtitleView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

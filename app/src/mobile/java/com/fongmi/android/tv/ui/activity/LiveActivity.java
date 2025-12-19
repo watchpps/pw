@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import tv.danmaku.ijk.media.player.ui.IjkSubtitleView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

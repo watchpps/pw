@@ -5,25 +5,35 @@ plugins {
 android {
     namespace 'tv.danmaku.ijk.media.player'
     compileSdk 35
+    
     defaultConfig {
         minSdk 21
         targetSdk 28
     }
+
     repositories {
         flatDir {
             dirs 'libs', '../app/libs'
         }
+    }
+
+    lint {
+        disable 'UnsafeOptInUsageError'
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation project(':catvod')
+    
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.annotation:annotation:1.8.0'
 
-    // 重点：必须同时引入 common 和 ui，且版本必须一致
-    def media3_version = "1.4.1"
-    api "androidx.media3:media3-common:$media3_version"
-    api "androidx.media3:media3-ui:$media3_version"
+    // 使用明确的版本号，并使用 api 关键字确保依赖传递到 app 模块
+    api "androidx.media3:media3-common:1.4.1"
+    api "androidx.media3:media3-ui:1.4.1"
+    
+    // 额外增加 compileOnly 确保 ijkplayer 模块编译时能看到这些类
+    compileOnly "androidx.media3:media3-common:1.4.1"
+    compileOnly "androidx.media3:media3-ui:1.4.1"
 }

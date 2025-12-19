@@ -102,7 +102,7 @@ dependencies {
     implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
     
-    // 本地 AAR (已移除冲突的 danmaku, wrapper, media3ext-release)
+    // 本地 AAR
     implementation(name: 'dfm-release', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')
     implementation(name: 'dlna-dmc-release', ext: 'aar')
@@ -114,15 +114,17 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.6.1'
     implementation 'androidx.media:media:1.7.0'
 
-    // 远程库 - 显式引入 Media3 组件 (确保 ExoPlayer 类可见)
+    // 远程库 - 显式引入 Media3 组件
     def media3_version = "1.4.1"
     implementation "androidx.media3:media3-exoplayer:$media3_version"
     implementation "androidx.media3:media3-ui:$media3_version"
     implementation "androidx.media3:media3-common:$media3_version"
     implementation "androidx.media3:media3-session:$media3_version"
     implementation "androidx.media3:media3-datasource:$media3_version"
+    // 解决编译报错：package androidx.media3.datasource.okhttp does not exist
+    implementation "androidx.media3:media3-datasource-okhttp:$media3_version"
     
-    // 远程库 - 播放扩展 (不再 exclude 以防基础库丢失)
+    // 远程库 - 播放扩展
     implementation 'com.github.anilbeesetti.nextlib:nextlib-media3ext:0.8.2'
 
     // 其他第三方库

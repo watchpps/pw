@@ -13,3 +13,18 @@ project.ext {
     jsoupVersion = '1.15.3'
     okhttpVersion = '5.0.0-alpha.14'
 }
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    // 强制所有模块使用相同版本的 Media3 库
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'androidx.media3') {
+                details.useVersion '1.4.1'
+            }
+        }
+    }
+}

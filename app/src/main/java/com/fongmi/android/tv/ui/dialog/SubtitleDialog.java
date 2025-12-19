@@ -2,7 +2,7 @@ package com.fongmi.android.tv.ui.dialog;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import androidx.media3.ui.IjkSubtitleView; // 使用我们刚才新建的类
+import tv.danmaku.ijk.media.player.ui.IjkSubtitleView;
 import com.fongmi.android.tv.databinding.DialogSubtitleBinding;
 import com.fongmi.android.tv.utils.Setting;
 import androidx.appcompat.app.AlertDialog;

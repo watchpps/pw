@@ -9,8 +9,7 @@
         <attr name="keep_content_on_player_reset" format="boolean" />
         <attr name="hide_on_touch" format="boolean" />
         <attr name="show_timeout" format="integer" />
-        
-        </declare-styleable>
+    </declare-styleable>
 
     <attr name="player_layout_id" format="reference" />
     <attr name="controller_layout_id" format="reference" />

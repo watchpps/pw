@@ -29,6 +29,7 @@ android {
         all_abi {
             dimension "abi"
             ndk {
+                // 包含所有架构，生成 Universal 通用版
                 abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
             }
         }
@@ -56,6 +57,7 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
+    // 优化输出文件名
     android.applicationVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
             def mode = variant.productFlavors[0].name
@@ -64,13 +66,8 @@ android {
         }
     }
 
-    android.applicationVariants.all { variant ->
-        if (variant.buildType.name == 'release' && variant.productFlavors[0].name == 'mobile') {
-            variant.mergeAssets.doLast {
-                delete(fileTree(dir: variant.mergeAssets.outputDir, includes: ['x5.tbs.apk']))
-            }
-        }
-    }
+    // --- 修改点：移除了针对 x5.tbs.apk 的 delete 逻辑 ---
+    // 这样即便 assets 目录是空的，编译也不会报错
 
     configurations.configureEach {
         resolutionStrategy {
@@ -83,7 +80,7 @@ android {
     }
 }
 
-// --- 关键修改：告诉 Gradle AAR 文件的位置 ---
+// 确保 GitHub Actions 识别本地 AAR
 repositories {
     flatDir {
         dirs 'libs'
@@ -91,7 +88,7 @@ repositories {
 }
 
 dependencies {
-    // 自动包含 libs 目录下所有的 jar 和 aar
+    // 自动扫描 libs 文件夹
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
     implementation project(':hook')
@@ -137,7 +134,7 @@ dependencies {
     implementation 'org.nanohttpd:nanohttpd:2.3.1'
     implementation('org.simpleframework:simple-xml:2.7.1') { exclude group: 'stax', module: 'stax-api' exclude group: 'xpp3', module: 'xpp3' }
 
-    // 由于上面用了 fileTree，这里的 individual 引用可以保留也可以删除，建议保留以显式声明
+    // 显式声明本地 AAR 库
     implementation(name: 'danmaku', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')
     implementation(name: 'dlna-dmc-release', ext: 'aar')

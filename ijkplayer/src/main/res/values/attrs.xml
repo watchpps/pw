@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="DefaultTimeBar">
+        <attr name="scrubber_color" format="color" />
+        <attr name="played_color" format="color" />
+        <attr name="buffered_color" format="color" />
+        <attr name="unplayed_color" format="color" />
+    </declare-styleable>
+
     <declare-styleable name="IjkVideoView">
         <attr name="auto_show" format="boolean" />
         <attr name="resize_mode" format="enum">
@@ -12,7 +19,5 @@
         <attr name="use_artwork" format="boolean" />
         <attr name="use_controller" format="boolean" />
         <attr name="animation_enabled" format="boolean" />
-        <attr name="default_artwork" format="reference" />
-        <attr name="keep_content_on_player_reset" format="boolean" />
     </declare-styleable>
 </resources>

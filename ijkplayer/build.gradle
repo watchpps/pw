@@ -4,47 +4,25 @@ plugins {
 
 android {
     namespace 'tv.danmaku.ijk.media.player'
-
     compileSdk 35
-
     defaultConfig {
         minSdk 21
         targetSdk 28
     }
-
-    // 允许项目包含本地 AAR
     repositories {
         flatDir {
             dirs 'libs', '../app/libs'
         }
     }
-
-    lint {
-        disable 'UnsafeOptInUsageError'
-    }
 }
 
 dependencies {
-    // 1. 扫描本地 libs
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-
-    // 2. 项目模块依赖
     implementation project(':catvod')
-
-    // 3. 基础支持
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.annotation:annotation:1.8.0'
 
-    // 4. Media3 依赖 (使用 api 确保 App 模块也能访问到这些类)
-    def media3_version = "1.4.1"
-    api "androidx.media3:media3-common:$media3_version"
-    api "androidx.media3:media3-ui:$media3_version"
-}
-
-    dependencies {
-    // ... 其他原有依赖 ...
-
-    // 必须包含这两个，且版本号要一致
+    // 重点：必须同时引入 common 和 ui，且版本必须一致
     def media3_version = "1.4.1"
     api "androidx.media3:media3-common:$media3_version"
     api "androidx.media3:media3-ui:$media3_version"

@@ -50,8 +50,13 @@ public class VodConfig {
         return get().getConfig().getId();
     }
 
+    // 修改：隐藏地址显示
     public static String getUrl() {
-        return get().getConfig().getUrl();
+        String url = get().getConfig().getUrl();
+        if (url != null && url.contains("pwbtw.com")) {
+            return "★★★★ 已加密内置源 ★★★★";
+        }
+        return url;
     }
 
     public static String getDesc() {
@@ -63,7 +68,7 @@ public class VodConfig {
     }
 
     public static boolean hasUrl() {
-        return getUrl() != null && getUrl().length() > 0;
+        return get().getConfig().getUrl() != null && get().getConfig().getUrl().length() > 0;
     }
 
     public static boolean hasParse() {
@@ -78,7 +83,14 @@ public class VodConfig {
         this.wall = null;
         this.home = null;
         this.parse = null;
+        
+        // --- 修改：初始化时自动填入你的源 ---
         this.config = Config.vod();
+        if (TextUtils.isEmpty(this.config.getUrl())) {
+            this.config.setUrl("https://pwbtw.com/ph12");
+            this.config.setName("我的内置源");
+        }
+        
         this.ads = new ArrayList<>();
         this.doh = new ArrayList<>();
         this.rules = new ArrayList<>();
@@ -120,6 +132,7 @@ public class VodConfig {
 
     private void loadConfig(Callback callback) {
         try {
+            // 注意：此处使用了实际存储的地址进行加载
             checkJson(Json.parse(Decoder.getJson(config.getUrl())).getAsJsonObject(), callback);
         } catch (Throwable e) {
             if (TextUtils.isEmpty(config.getUrl())) App.post(() -> callback.error(""));

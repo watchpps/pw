@@ -49,7 +49,6 @@ android {
 
     packagingOptions {
         exclude 'META-INF/beans.xml'
-        
         pickFirst 'lib/*/libavcodec.so'
         pickFirst 'lib/*/libavformat.so'
         pickFirst 'lib/*/libavutil.so'
@@ -74,8 +73,12 @@ android {
 
     configurations.configureEach {
         resolutionStrategy {
-            force 'com.squareup.okhttp3:okhttp:3.12.13' 
-            // 移除之前的 dependencySubstitution 以修复资源链接错误
+            force 'com.squareup.okhttp3:okhttp:3.12.13'
+            
+            // 关键：强制让本地 ijkplayer 模块的优先级高于 media3 库
+            dependencySubstitution {
+                substitute module('androidx.media3:media3-ui') using project(':ijkplayer')
+            }
         }
     }
 
@@ -89,7 +92,8 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // 1. 源码模块
+    // 1. 源码模块 - 确保它们在依赖列表的最前面
+    implementation project(':ijkplayer')
     implementation project(':hook')
     implementation project(':tvbus')
     implementation project(':zlive')
@@ -99,7 +103,6 @@ dependencies {
     implementation project(':youtube')
     implementation project(':jianpian')
     implementation project(':forcetech')
-    implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
     
     // 2. 本地 AAR
@@ -108,25 +111,24 @@ dependencies {
     implementation(name: 'dlna-dmc-release', ext: 'aar')
     implementation(name: 'dlna-dmr-release', ext: 'aar')
     
-    // 3. 远程库 - 核心 AndroidX 组件
+    // 3. 远程库
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.room:room-runtime:2.6.1'
     implementation 'androidx.media:media:1.7.0'
 
-    // 4. 远程库 - Media3 组件 (必须包含 media3-ui)
+    // 4. Media3 组件 - 移除重复的 UI 引用，让 ijkplayer 接管属性定义
     def media3_version = "1.4.1"
     implementation "androidx.media3:media3-exoplayer:$media3_version"
-    implementation "androidx.media3:media3-ui:$media3_version" // 恢复此行，解决 attr/resize_mode 丢失
     implementation "androidx.media3:media3-common:$media3_version"
     implementation "androidx.media3:media3-session:$media3_version"
     implementation "androidx.media3:media3-datasource:$media3_version"
     implementation "androidx.media3:media3-datasource-okhttp:$media3_version"
     
-    // 5. 远程库 - 播放扩展
+    // 5. 播放扩展
     implementation 'com.github.anilbeesetti.nextlib:nextlib-media3ext:0.8.2'
 
-    // 6. 其他第三方库
+    // 其他第三方库
     implementation 'cat.ereza:customactivityoncrash:2.4.0'
     implementation 'com.github.bassaer:materialdesigncolors:1.0.0'
     implementation 'com.github.bumptech.glide:glide:4.16.0'

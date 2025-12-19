@@ -80,12 +80,6 @@ android {
     }
 }
 
-// 确保 GitHub Actions 识别本地 AAR
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
-}
 
 dependencies {
     // 自动扫描 libs 文件夹

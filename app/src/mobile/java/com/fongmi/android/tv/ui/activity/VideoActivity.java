@@ -1252,14 +1252,11 @@ public class VideoActivity extends BaseActivity implements Clock.Callback, Custo
     public void onSubtitleClick() {
     App.post(this::hideControl, 200);
     
-    // 获取 View 并强转为我们自定义的 IjkSubtitleView
-    // 这样 SubtitleDialog 才能调用到 addTextSize 等方法
+    // 显式强转为 IjkSubtitleView，确保 SubtitleDialog 能调用 addTextSize/subBottomPadding 等自定义方法
     IjkSubtitleView subtitleView = (IjkSubtitleView) (mPlayers.isIjk() ? getIjk().getSubtitleView() : getExo().getSubtitleView());
     
     App.post(() -> SubtitleDialog.create().view(subtitleView).full(isFullscreen()).show(this), 200);
     }
-
-
 
     @Override
     public void onTimeChanged() {

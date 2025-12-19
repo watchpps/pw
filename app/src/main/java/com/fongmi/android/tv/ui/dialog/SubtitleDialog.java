@@ -32,22 +32,21 @@ public class SubtitleDialog {
         dialog.show();
     }
 
-    private void initView() {
-        // 绑定调节字号的按钮事件
-        binding.textAdd.setOnClickListener(v -> {
+        private void initView() {
+        // 请确认 xml 中的 ID 是不是 textSizeAdd, textSizeSub, subtitleAdd, subtitleSub
+        binding.textSizeAdd.setOnClickListener(v -> {
             if (subtitleView != null) subtitleView.addTextSize(0.05f);
         });
 
-        binding.textSub.setOnClickListener(v -> {
+        binding.textSizeSub.setOnClickListener(v -> {
             if (subtitleView != null) subtitleView.subTextSize(0.05f);
         });
 
-        // 绑定调节位置（边距）的按钮事件
-        binding.paddingAdd.setOnClickListener(v -> {
+        binding.subtitleAdd.setOnClickListener(v -> {
             if (subtitleView != null) subtitleView.addBottomPadding(0.01f);
         });
 
-        binding.paddingSub.setOnClickListener(v -> {
+        binding.subtitleSub.setOnClickListener(v -> {
             if (subtitleView != null) subtitleView.subBottomPadding(0.01f);
         });
     }

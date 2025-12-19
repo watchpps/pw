@@ -116,9 +116,7 @@ dependencies {
     implementation(name: 'dlna-core-release', ext: 'aar')
     implementation(name: 'dlna-dmc-release', ext: 'aar')
     implementation(name: 'dlna-dmr-release', ext: 'aar')
-    implementation(name: 'media3ext-release', ext: 'aar')
-    implementation(name: 'wrapper-android-release', ext: 'aar')
-
+    
     // 6. 远程库
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.biometric:biometric:1.1.0'

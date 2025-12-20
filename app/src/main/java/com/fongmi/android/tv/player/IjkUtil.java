@@ -1,9 +1,9 @@
 package com.fongmi.android.tv.player;
 
 import android.net.Uri;
+import com.fongmi.android.tv.Setting; // 修正后的路径
 import com.fongmi.android.tv.bean.Channel;
 import com.fongmi.android.tv.bean.Result;
-import com.fongmi.android.tv.utils.Setting; // 假设 Setting 类在此路径下
 import com.fongmi.android.tv.utils.UrlUtil;
 import java.util.Map;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
@@ -25,18 +25,13 @@ public class IjkUtil {
         return new MediaSource(Players.checkUa(headers), uri);
     }
 
-    // 核心修复：设置字幕样式的方法
     public static void setSubtitle(IjkMediaPlayer ijk) {
         if (ijk == null) return;
         
-        // 获取 IjkMediaPlayer 内部持有的字幕 View
         Object subtitleView = ijk.getSubtitleView();
-        
-        // 检查是否是我们自定义的包装类 IjkSubtitleView
         if (subtitleView instanceof IjkSubtitleView) {
             IjkSubtitleView view = (IjkSubtitleView) subtitleView;
             
-            // 应用设置
             view.setApplyEmbeddedFontSizes(false);
             view.setApplyEmbeddedStyles(!Setting.isCaption());
             

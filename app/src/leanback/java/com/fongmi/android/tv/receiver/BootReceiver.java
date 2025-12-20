@@ -45,7 +45,7 @@ public class BootReceiver extends BroadcastReceiver {
 
         private void doJob() {
             LiveConfig.get().init().load();
-            DLNARendererService.start(App.get());
+           // DLNARendererService.start(App.get());
             ((ConnectivityManager) App.get().getSystemService(Context.CONNECTIVITY_SERVICE)).unregisterNetworkCallback(this);
         }
     }

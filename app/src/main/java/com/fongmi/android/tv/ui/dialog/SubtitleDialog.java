@@ -32,21 +32,21 @@ public class SubtitleDialog {
         dialog.show();
     }
 
-        private void initView() {
-        // 请确认 xml 中的 ID 是不是 textSizeAdd, textSizeSub, subtitleAdd, subtitleSub
-        binding.textSizeAdd.setOnClickListener(v -> {
+    private void initView() {
+        // 根据报错信息，将 ID 修正为更通用的 textAdd / textSub / paddingAdd / paddingSub
+        binding.textAdd.setOnClickListener(v -> {
             if (subtitleView != null) subtitleView.addTextSize(0.05f);
         });
 
-        binding.textSizeSub.setOnClickListener(v -> {
+        binding.textSub.setOnClickListener(v -> {
             if (subtitleView != null) subtitleView.subTextSize(0.05f);
         });
 
-        binding.subtitleAdd.setOnClickListener(v -> {
+        binding.paddingAdd.setOnClickListener(v -> {
             if (subtitleView != null) subtitleView.addBottomPadding(0.01f);
         });
 
-        binding.subtitleSub.setOnClickListener(v -> {
+        binding.paddingSub.setOnClickListener(v -> {
             if (subtitleView != null) subtitleView.subBottomPadding(0.01f);
         });
     }

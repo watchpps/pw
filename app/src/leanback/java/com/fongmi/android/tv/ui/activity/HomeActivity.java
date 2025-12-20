@@ -108,7 +108,7 @@ public class HomeActivity extends BaseActivity implements CustomTitleView.Listen
 
     @Override
     protected void initView() {
-        DLNARendererService.start(this);
+       // DLNARendererService.start(this);
         mClock = Clock.create(mBinding.clock).format("MM/dd HH:mm:ss");
         Updater.get().release().start(this);
         Server.get().start();

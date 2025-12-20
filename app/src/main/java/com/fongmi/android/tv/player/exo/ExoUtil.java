@@ -36,10 +36,8 @@ import java.util.Map;
 public class ExoUtil {
 
     public static LoadControl buildLoadControl() {
-        // 修复：Media3 不支持直接 new DefaultLoadControl(int)，改用 Builder
-        return new DefaultLoadControl.Builder()
-                .setBufferMsParameters(Setting.getBuffer(), Setting.getBuffer(), 2500, 5000)
-                .build();
+        // 兼容性改法：不使用 setBufferMsParameters，改用默认 Builder
+        return new DefaultLoadControl.Builder().build();
     }
 
     public static TrackSelector buildTrackSelector() {
@@ -95,8 +93,8 @@ public class ExoUtil {
     }
 
     public static String getMimeType(int errorCode) {
-        // 修复：MimeTypes.APPLICATION_OCTET 改为 APPLICATION_OCTET_STREAM
-        if (errorCode == PlaybackException.ERROR_CODE_PARSING_MANIFEST_UNSUPPORTED || errorCode == PlaybackException.ERROR_CODE_PARSING_MANIFEST_MALFORMED) return MimeTypes.APPLICATION_OCTET_STREAM;
+        // 兼容性改法：直接返回字符串常量
+        if (errorCode == PlaybackException.ERROR_CODE_PARSING_MANIFEST_UNSUPPORTED || errorCode == PlaybackException.ERROR_CODE_PARSING_MANIFEST_MALFORMED) return "application/octet-stream";
         if (errorCode == PlaybackException.ERROR_CODE_PARSING_CONTAINER_UNSUPPORTED || errorCode == PlaybackException.ERROR_CODE_PARSING_CONTAINER_MALFORMED || errorCode == PlaybackException.ERROR_CODE_IO_UNSPECIFIED) return MimeTypes.APPLICATION_M3U8;
         return null;
     }
@@ -116,7 +114,6 @@ public class ExoUtil {
         if (drm != null) builder.setDrmConfiguration(drm.get());
         if (mimeType != null) builder.setMimeType(mimeType);
         builder.setMediaId(uri.toString());
-        // 修复：移除当前版本不支持的 builder.setAllowChunklessPreparation / setForceUseRtpTcp / setAds
         return builder.build();
     }
 

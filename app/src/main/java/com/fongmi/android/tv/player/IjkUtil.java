@@ -2,7 +2,9 @@ package com.fongmi.android.tv.player;
 
 import android.net.Uri;
 import tv.danmaku.ijk.media.player.ui.IjkSubtitleView;
-
+import com.fongmi.android.tv.utils.Setting;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+    
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.bean.Channel;
 import com.fongmi.android.tv.bean.Result;
@@ -29,13 +31,27 @@ public class IjkUtil {
         return new MediaSource(Players.checkUa(headers), uri);
     }
 
+    public class IjkUtil {
+
     public static void setSubtitle(IjkMediaPlayer ijk) {
-    IjkSubtitleView view = (IjkSubtitleView) ijk.getSubtitleView();
-    if (view == null) return;
-    
-    view.setApplyEmbeddedFontSizes(false);
-    view.setApplyEmbeddedStyles(!Setting.isCaption());
-    if (Setting.getSubtitleTextSize() != 0) view.setFractionalTextSize(Setting.getSubtitleTextSize());
-    if (Setting.getSubtitleBottomPadding() != 0) view.setBottomPaddingFraction(Setting.getSubtitleBottomPadding());
+        if (ijk == null) return;
+        
+        // 3. 获取 View 并强转为我们的包装类
+        // 注意：这里假设 ijk.getSubtitleView() 返回的是我们在模块中注入的 View
+        Object subtitleView = ijk.getSubtitleView();
+        if (subtitleView instanceof IjkSubtitleView) {
+            IjkSubtitleView view = (IjkSubtitleView) subtitleView;
+            
+            view.setApplyEmbeddedFontSizes(false);
+            view.setApplyEmbeddedStyles(!Setting.isCaption());
+            
+            if (Setting.getSubtitleTextSize() != 0) {
+                view.setFractionalTextSize(Setting.getSubtitleTextSize());
+            }
+            if (Setting.getSubtitleBottomPadding() != 0) {
+                view.setBottomPaddingFraction(Setting.getSubtitleBottomPadding());
+            }
+        }
+    }
 }
 }

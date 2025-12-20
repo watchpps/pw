@@ -1,34 +1,30 @@
 package com.fongmi.android.tv.player;
 
+import android.net.Uri;
 import com.fongmi.android.tv.Setting;
+import com.fongmi.android.tv.utils.UrlUtil;
+import java.util.Map;
+import tv.danmaku.ijk.media.player.MediaSource;
 import tv.danmaku.ijk.media.player.ui.IjkVideoView;
 import tv.danmaku.ijk.media.player.ui.IjkSubtitleView;
 
 public class IjkUtil {
 
-    /**
-     * 适配 Activity 中的调用：IjkUtil.setSubtitleView(mBinding.ijk)
-     */
+    // 补回原本缺失的 getSource 方法，修复 Players.java 的报错
+    public static MediaSource getSource(Map<String, String> headers, String url) {
+        Uri uri = UrlUtil.uri(url);
+        return new MediaSource(Players.checkUa(headers), uri);
+    }
+
     public static void setSubtitleView(IjkVideoView ijk) {
         if (ijk == null || ijk.getSubtitleView() == null) return;
-        
         Object subtitleView = ijk.getSubtitleView();
-        
-        // 检查是否为自定义包装类 IjkSubtitleView
         if (subtitleView instanceof IjkSubtitleView) {
             IjkSubtitleView view = (IjkSubtitleView) subtitleView;
-            
-            // 应用 Setting 中的样式设置
             view.setApplyEmbeddedFontSizes(false);
             view.setApplyEmbeddedStyles(!Setting.isCaption());
-            
-            if (Setting.getSubtitleTextSize() != 0) {
-                view.setFractionalTextSize(Setting.getSubtitleTextSize());
-            }
-            
-            if (Setting.getSubtitleBottomPadding() != 0) {
-                view.setBottomPaddingFraction(Setting.getSubtitleBottomPadding());
-            }
+            if (Setting.getSubtitleTextSize() != 0) view.setFractionalTextSize(Setting.getSubtitleTextSize());
+            if (Setting.getSubtitleBottomPadding() != 0) view.setBottomPaddingFraction(Setting.getSubtitleBottomPadding());
         }
     }
 }

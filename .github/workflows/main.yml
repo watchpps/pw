@@ -1,4 +1,4 @@
-name: Android CI
+Name: Android CI
 
 on:
   push:
@@ -30,38 +30,24 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    # --- 编译 Universal 版本 (包含所有架构) ---
+    # --- 1. 编译 Leanback (电视版) ---
     - name: Build Leanback Java Universal APK
       run: ./gradlew assembleLeanbackJavaAll_abiRelease
 
+    # --- 2. 编译 Mobile (手机版) ---
     - name: Build Mobile Java Universal APK
       run: ./gradlew assembleMobileJavaAll_abiRelease
 
-    # --- 整理并上传 TV 版 APK ---
+    # --- 3. 上传 TV 版 APK ---
     - name: Upload Leanback APK
       uses: actions/upload-artifact@v4
       with:
         name: TVBox-Leanback-Universal
         path: app/build/outputs/apk/leanback/java/all_abi/release/*.apk
 
-    # --- 整理并上传 手机版 APK ---
+    # --- 4. 上传 手机版 APK ---
     - name: Upload Mobile APK
       uses: actions/upload-artifact@v4
       with:
         name: TVBox-Mobile-Universal
         path: app/build/outputs/apk/mobile/java/all_abi/release/*.apk
-    - name: Build Mobile Release APK
-      run: ./gradlew assembleMobileJavaRelease
-    # --------------------------------------------------
-
-    - name: Upload Leanback APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: TVBox-Leanback-Release
-        path: app/build/outputs/apk/leanback/java/release/*.apk
-
-    - name: Upload Mobile APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: TVBox-Mobile-Release
-        path: app/build/outputs/apk/mobile/java/release/*.apk

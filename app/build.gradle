@@ -78,12 +78,6 @@ android {
         }
     }
 
-    configurations.configureEach {
-        resolutionStrategy {
-            force 'com.squareup.okhttp3:okhttp:3.12.13' 
-        }
-    }
-}
 
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.1.5'

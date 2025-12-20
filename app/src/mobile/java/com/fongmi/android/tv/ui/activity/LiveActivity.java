@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import tv.danmaku.ijk.media.player.ui.IjkSubtitleView;
+import com.fongmi.android.tv.bean.Track;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -755,6 +756,13 @@ public class LiveActivity extends BaseActivity implements Clock.Callback, Custom
         mChannel = null;
         mGroup = null;
     }
+
+    @Override
+    public void onTrackClick(com.fongmi.android.tv.bean.Track track) {
+        // 如果不需要特殊逻辑，保留空实现即可，这足以通过编译
+        if (mPlayers != null) mPlayers.setTrack(track);
+    }
+
 
     @Override
     public void onSubtitleClick() {

@@ -33,21 +33,19 @@ public class SubtitleDialog {
     }
 
     private void initView() {
-        // 根据报错信息，将 ID 修正为更通用的 textAdd / textSub / paddingAdd / paddingSub
-        binding.textAdd.setOnClickListener(v -> {
-            if (subtitleView != null) subtitleView.addTextSize(0.05f);
-        });
-
-        binding.textSub.setOnClickListener(v -> {
-            if (subtitleView != null) subtitleView.subTextSize(0.05f);
-        });
-
-        binding.paddingAdd.setOnClickListener(v -> {
-            if (subtitleView != null) subtitleView.addBottomPadding(0.01f);
-        });
-
-        binding.paddingSub.setOnClickListener(v -> {
-            if (subtitleView != null) subtitleView.subBottomPadding(0.01f);
-        });
+        // 尝试使用更常见的命名：textSizeAdd / textSizeSub / subtitleAdd / subtitleSub
+        // 如果你的 XML 里是 text_size_add，DataBinding 会变成 textSizeAdd
+        if (binding.textSizeAdd != null) {
+            binding.textSizeAdd.setOnClickListener(v -> { if (subtitleView != null) subtitleView.addTextSize(0.05f); });
+        }
+        if (binding.textSizeSub != null) {
+            binding.textSizeSub.setOnClickListener(v -> { if (subtitleView != null) subtitleView.subTextSize(0.05f); });
+        }
+        if (binding.subtitleAdd != null) {
+            binding.subtitleAdd.setOnClickListener(v -> { if (subtitleView != null) subtitleView.addBottomPadding(0.01f); });
+        }
+        if (binding.subtitleSub != null) {
+            binding.subtitleSub.setOnClickListener(v -> { if (subtitleView != null) subtitleView.subBottomPadding(0.01f); });
+        }
     }
 }

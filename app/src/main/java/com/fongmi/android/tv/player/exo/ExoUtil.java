@@ -27,7 +27,6 @@ import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.bean.Drm;
 import com.fongmi.android.tv.bean.Sub;
 import com.fongmi.android.tv.player.Players;
-import com.fongmi.android.tv.utils.Sniffer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,10 @@ import java.util.Map;
 public class ExoUtil {
 
     public static LoadControl buildLoadControl() {
-        return new DefaultLoadControl(Setting.getBuffer());
+        // 修复：Media3 不支持直接 new DefaultLoadControl(int)，改用 Builder
+        return new DefaultLoadControl.Builder()
+                .setBufferMsParameters(Setting.getBuffer(), Setting.getBuffer(), 2500, 5000)
+                .build();
     }
 
     public static TrackSelector buildTrackSelector() {
@@ -93,7 +95,8 @@ public class ExoUtil {
     }
 
     public static String getMimeType(int errorCode) {
-        if (errorCode == PlaybackException.ERROR_CODE_PARSING_MANIFEST_UNSUPPORTED || errorCode == PlaybackException.ERROR_CODE_PARSING_MANIFEST_MALFORMED) return MimeTypes.APPLICATION_OCTET;
+        // 修复：MimeTypes.APPLICATION_OCTET 改为 APPLICATION_OCTET_STREAM
+        if (errorCode == PlaybackException.ERROR_CODE_PARSING_MANIFEST_UNSUPPORTED || errorCode == PlaybackException.ERROR_CODE_PARSING_MANIFEST_MALFORMED) return MimeTypes.APPLICATION_OCTET_STREAM;
         if (errorCode == PlaybackException.ERROR_CODE_PARSING_CONTAINER_UNSUPPORTED || errorCode == PlaybackException.ERROR_CODE_PARSING_CONTAINER_MALFORMED || errorCode == PlaybackException.ERROR_CODE_IO_UNSPECIFIED) return MimeTypes.APPLICATION_M3U8;
         return null;
     }
@@ -108,14 +111,12 @@ public class ExoUtil {
 
     public static MediaItem getMediaItem(Map<String, String> headers, Uri uri, String mimeType, Drm drm, List<Sub> subs, int decode) {
         MediaItem.Builder builder = new MediaItem.Builder().setUri(uri);
-        builder.setAllowChunklessPreparation(decode == Players.HARD);
         builder.setRequestMetadata(getRequestMetadata(headers, uri));
         builder.setSubtitleConfigurations(getSubtitleConfigs(subs));
         if (drm != null) builder.setDrmConfiguration(drm.get());
         if (mimeType != null) builder.setMimeType(mimeType);
-        builder.setForceUseRtpTcp(Setting.getRtsp() == 1);
-        builder.setAds(Sniffer.getRegex(uri));
         builder.setMediaId(uri.toString());
+        // 修复：移除当前版本不支持的 builder.setAllowChunklessPreparation / setForceUseRtpTcp / setAds
         return builder.build();
     }
 

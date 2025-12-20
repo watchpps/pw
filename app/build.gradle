@@ -4,13 +4,12 @@ plugins {
 
 android {
     namespace 'com.fongmi.android.tv'
-
     compileSdk 35
     flavorDimensions = ["mode", "api", "abi"]
 
     defaultConfig {
         applicationId "com.fongmi.android.tv"
-        minSdk 21
+        minSdk 24
         targetSdk 28
         versionCode 258
         versionName "2.5.8"
@@ -49,9 +48,16 @@ android {
 
     packagingOptions {
         exclude 'META-INF/beans.xml'
+        pickFirst 'lib/*/libavcodec.so'
+        pickFirst 'lib/*/libavformat.so'
+        pickFirst 'lib/*/libavutil.so'
+        pickFirst 'lib/*/libswresample.so'
+        pickFirst 'lib/*/libswscale.so'
+        pickFirst 'lib/*/libmedia3ext.so'
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
@@ -76,10 +82,9 @@ android {
 }
 
 dependencies {
-    // 1. 扫描 libs 文件夹
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.1.5'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // 2. 内部项目模块
     implementation project(':hook')
     implementation project(':tvbus')
     implementation project(':zlive')
@@ -92,30 +97,28 @@ dependencies {
     implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
     
-    // 3. 严格对应你 libs 截图中的文件名 (已移除 lib-common-release 等缺失文件)
-    implementation(name: 'danmaku', ext: 'aar')
     implementation(name: 'dfm-release', ext: 'aar')
     implementation(name: 'dlna-core-release', ext: 'aar')
     implementation(name: 'dlna-dmc-release', ext: 'aar')
     implementation(name: 'dlna-dmr-release', ext: 'aar')
-    implementation(name: 'forcetech-release', ext: 'aar')
-    implementation(name: 'hook-release', ext: 'aar')
-    implementation(name: 'ijkplayer-java-release', ext: 'aar')
-    implementation(name: 'jianpian-release', ext: 'aar')
-    implementation(name: 'media3ext-release', ext: 'aar')
-    implementation(name: 'quickjs', ext: 'aar')
-    implementation(name: 'thunder-release', ext: 'aar')
-    implementation(name: 'tvbus-release', ext: 'aar')
-    implementation(name: 'wrapper-android-release', ext: 'aar')
-    implementation(name: 'zlive-release', ext: 'aar')
-
-    // 4. 远程库
+    
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.room:room-runtime:2.6.1'
     implementation 'androidx.media:media:1.7.0'
+
+    // 标准 Media3 引入，确保资源属性完整
+    def media3_version = "1.4.1"
+    implementation "androidx.media3:media3-exoplayer:$media3_version"
+    implementation "androidx.media3:media3-ui:$media3_version" 
+    implementation "androidx.media3:media3-common:$media3_version"
+    implementation "androidx.media3:media3-session:$media3_version"
+    implementation "androidx.media3:media3-datasource:$media3_version"
+    implementation "androidx.media3:media3-datasource-okhttp:$media3_version"
+    
+    implementation 'com.github.anilbeesetti.nextlib:nextlib-media3ext:0.8.2'
+
     implementation 'cat.ereza:customactivityoncrash:2.4.0'
-    implementation('com.github.anilbeesetti.nextlib:nextlib-media3ext:0.8.2') { exclude group: 'androidx.media3', module: 'media3-exoplayer' }
     implementation 'com.github.bassaer:materialdesigncolors:1.0.0'
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     implementation 'com.github.bumptech.glide:annotations:4.16.0'

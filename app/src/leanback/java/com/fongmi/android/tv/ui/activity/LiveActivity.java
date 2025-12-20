@@ -712,9 +712,6 @@ public class LiveActivity extends BaseActivity implements Clock.Callback, GroupP
         mGroup = null;
     }
 
-    @Override
-    public void onTrackClick(Track item) {
-    }
 
     @Override
     public void onSubtitleClick() {

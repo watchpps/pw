@@ -29,10 +29,20 @@
 -keepclassmembers,allowobfuscation class * { @org.simpleframework.xml.Root <fields>; }
 -keepclassmembers,allowobfuscation class * { @org.simpleframework.xml.Attribute <fields>; }
 
-# OkHttp
--dontwarn okhttp3.**
--keep class okio.** { *; }
+# OkHttp 3 完整保护
+-keepattributes Signature
+-keepattributes *Annotation*
 -keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+
+# Okio (OkHttp 的底层依赖)
+-keep class okio.** { *; }
+-dontwarn okio.**
+
+# 如果你使用了 Cronet 加速，也要保护
+-keep class org.chromium.net.** { *; }
+
 
 # CatVod (重点修改：防止 utils 下的解析类被混淆)
 -keep class com.github.catvod.** { *; }

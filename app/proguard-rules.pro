@@ -1,7 +1,9 @@
-# TV
+# TV 核心业务类
 -keep class com.fongmi.android.tv.bean.** { *; }
+-keep class com.fongmi.android.tv.api.** { *; }
+-keep class com.fongmi.android.tv.server.** { *; }
 
-# Gson
+# Gson (保持模型类不被混淆，防止解析 JSON 失败)
 -keepattributes Signature
 -keepattributes *Annotation*
 -dontwarn sun.misc.**
@@ -32,10 +34,12 @@
 -keep class okio.** { *; }
 -keep class okhttp3.** { *; }
 
-# CatVod
+# CatVod (重点修改：防止 utils 下的解析类被混淆)
+-keep class com.github.catvod.** { *; }
 -keep class com.github.catvod.Proxy { *; }
 -keep class com.github.catvod.crawler.** { *; }
 -keep class * extends com.github.catvod.crawler.Spider
+-dontwarn com.github.catvod.**
 
 # Cling
 -dontwarn javax.**

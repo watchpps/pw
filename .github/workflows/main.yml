@@ -38,16 +38,10 @@ jobs:
     - name: Build Mobile Java Universal APK
       run: ./gradlew assembleMobileJavaAll_abiRelease
 
-    # --- 3. 上传 TV 版 APK ---
-    - name: Upload Leanback APK
+    # --- 3. 自动搜索并上传所有生成的 APK ---
+    # 使用 **/*.apk 可以自动匹配多级子目录，解决路径找不到的问题
+    - name: Upload All Release APKs
       uses: actions/upload-artifact@v4
       with:
-        name: TVBox-Leanback-Universal
-        path: app/build/outputs/apk/leanback/java/all_abi/release/*.apk
-
-    # --- 4. 上传 手机版 APK ---
-    - name: Upload Mobile APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: TVBox-Mobile-Universal
-        path: app/build/outputs/apk/mobile/java/all_abi/release/*.apk
+        name: TVBox-Build-Output
+        path: app/build/outputs/apk/**/*.apk

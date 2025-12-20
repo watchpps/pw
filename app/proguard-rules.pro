@@ -29,7 +29,7 @@
 -keepclassmembers,allowobfuscation class * { @org.simpleframework.xml.Root <fields>; }
 -keepclassmembers,allowobfuscation class * { @org.simpleframework.xml.Attribute <fields>; }
 
-# OkHttp 3 完整保护
+# OkHttp 3 完整保护 (防止 Failed resolution of: Lokhttp3/OkHttp)
 -keepattributes Signature
 -keepattributes *Annotation*
 -keep class okhttp3.** { *; }
@@ -40,16 +40,15 @@
 -keep class okio.** { *; }
 -dontwarn okio.**
 
-# 如果你使用了 Cronet 加速，也要保护
--keep class org.chromium.net.** { *; }
-
-
-# CatVod (重点修改：防止 utils 下的解析类被混淆)
+# CatVod (重点修改：防止 utils 下的解析类被混淆导致配置源读取不到)
 -keep class com.github.catvod.** { *; }
 -keep class com.github.catvod.Proxy { *; }
 -keep class com.github.catvod.crawler.** { *; }
 -keep class * extends com.github.catvod.crawler.Spider
 -dontwarn com.github.catvod.**
+
+# MultiDex 保护
+-keep class androidx.multidex.** { *; }
 
 # Cling
 -dontwarn javax.**

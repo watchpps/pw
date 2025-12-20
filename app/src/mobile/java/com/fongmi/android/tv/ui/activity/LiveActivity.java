@@ -759,9 +759,9 @@ public class LiveActivity extends BaseActivity implements Clock.Callback, Custom
 
     @Override
     public void onTrackClick(com.fongmi.android.tv.bean.Track track) {
-        // 如果不需要特殊逻辑，保留空实现即可，这足以通过编译
-        if (mPlayers != null) mPlayers.setTrack(track);
+    // 暂时不写逻辑，确保打包成功
     }
+
 
 
     @Override

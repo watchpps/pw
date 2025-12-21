@@ -13,8 +13,6 @@ android {
         targetSdk 28
         versionCode 258
         versionName "2.5.8"
-        
-        // --- 核心修复 1：开启分包支持 ---
         multiDexEnabled true 
         
         javaCompileOptions {
@@ -24,7 +22,6 @@ android {
         }
     }
 
-    // --- 核心修复 2：跳过所有 Lint 检查和 SDK 过期报错 ---
     lint {
         checkReleaseBuilds false
         abortOnError false
@@ -83,9 +80,7 @@ android {
 } 
 
 dependencies {
-    // --- 核心修复 4：添加分包依赖库 ---
     implementation 'androidx.multidex:multidex:2.0.1'
-    
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.1.5'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -111,12 +106,13 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.6.1'
     implementation 'androidx.media:media:1.7.0'
 
-    // --- 核心修复 6：补充 HLS/DASH/RTSP 播放组件 ---
+    // --- 核心修复：补全播放与下载组件 ---
     def media3_version = "1.4.1"
     implementation "androidx.media3:media3-exoplayer:$media3_version"
     implementation "androidx.media3:media3-exoplayer-hls:$media3_version"
     implementation "androidx.media3:media3-exoplayer-dash:$media3_version"
     implementation "androidx.media3:media3-exoplayer-rtsp:$media3_version"
+    implementation "androidx.media3:media3-database:$media3_version" // 下载功能必须依赖这个
     implementation "androidx.media3:media3-ui:$media3_version" 
     implementation "androidx.media3:media3-common:$media3_version"
     implementation "androidx.media3:media3-session:$media3_version"
@@ -124,8 +120,6 @@ dependencies {
     implementation "androidx.media3:media3-datasource-okhttp:$media3_version"
     
     implementation 'com.github.anilbeesetti.nextlib:nextlib-media3ext:0.8.2'
-
-    // --- 核心修复 5：确保 OkHttp 显式引入 ---
     implementation 'com.squareup.okhttp3:okhttp:3.12.13'
 
     implementation 'cat.ereza:customactivityoncrash:2.4.0'

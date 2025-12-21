@@ -1,22 +1,42 @@
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
 
-    <!-- Home -->
     <string name="home">首頁</string>
     <string name="home_vod">點播</string>
     <string name="home_live">直播</string>
-    <string name="home_search">搜尋</string>
+    <string name="home_search">搜索</string>
     <string name="home_keep">收藏</string>
     <string name="home_push">推送</string>
-    <string name="home_setting">設定</string>
+    <string name="home_setting">設置</string>
     <string name="home_history_short">歷史</string>
     <string name="home_history">最近觀看</string>
     <string name="home_recommend">更新推薦</string>
 
-    <!-- Collect -->
-    <string name="collect_result">「<xliff:g name="name">%s</xliff:g>」的搜尋結果</string>
+    <string name="collect_result">“<xliff:g name="name">%s</xliff:g>”的搜索結果</string>
 
-    <!-- Push -->
-    <string name="push_clip">推送剪貼簿內容</string>
-    <string name="push_info">使用手機掃描 QR Code，或於瀏覽器輸入網址\n<xliff:g name="name">%s</xliff:g></string>
+    <string name="push_clip">推送剪貼板內容</string>
+    <string name="push_info">使用手機掃描二維碼，或於瀏覽器訪問地址\n<xliff:g name="name">%s</xliff:g></string>
+
+    <string name="setting_on">開啟</string>
+    <string name="setting_off">關閉</string>
+    <string name="setting_builtin_download">內置下載</string>
+    <string name="setting_remove_ad">去廣告</string>
+    <string name="setting_quality">圖片質量</string>
+    <string name="setting_size">列表大小</string>
+    <string name="setting_episode">選集排序</string>
+    <string name="setting_speed">播放速度</string>
+    <string name="setting_fullscreen_menu_key">全屏菜單鍵</string>
+    <string name="setting_home_site_lock">首頁鎖定</string>
+    <string name="setting_incognito">無痕模式</string>
+    <string name="setting_small_window_back_key">小窗口返回</string>
+    <string name="setting_home_menu_key">首頁菜單</string>
+    <string name="setting_aggregated_search">聚合搜索</string>
+    <string name="setting_home_ui">首頁樣式</string>
+    <string name="setting_home_buttons">首頁按鈕</string>
+    <string name="setting_home_history">首頁歷史</string>
+    <string name="setting_language">語言設置</string>
+    <string name="setting_parse_webview">解析內核</string>
+    <string name="setting_config_cache">配置緩存</string>
+    <string name="setting_cache_dir">緩存目錄</string>
+    <string name="setting_reset_app">重置應用</string>
 
 </resources>

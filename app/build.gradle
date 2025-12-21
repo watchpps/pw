@@ -106,13 +106,13 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.6.1'
     implementation 'androidx.media:media:1.7.0'
 
-    // --- 核心修复：补全播放与下载组件 ---
+    // --- 播放与下载组件 ---
     def media3_version = "1.4.1"
     implementation "androidx.media3:media3-exoplayer:$media3_version"
     implementation "androidx.media3:media3-exoplayer-hls:$media3_version"
     implementation "androidx.media3:media3-exoplayer-dash:$media3_version"
     implementation "androidx.media3:media3-exoplayer-rtsp:$media3_version"
-    implementation "androidx.media3:media3-database:$media3_version" // 下载功能必须依赖这个
+    implementation "androidx.media3:media3-database:$media3_version" 
     implementation "androidx.media3:media3-ui:$media3_version" 
     implementation "androidx.media3:media3-common:$media3_version"
     implementation "androidx.media3:media3-session:$media3_version"
@@ -146,7 +146,13 @@ dependencies {
     implementation 'org.fourthline.cling:cling-support:2.1.2-SNAPSHOT'
     implementation 'org.greenrobot:eventbus:3.3.1'
     implementation 'org.nanohttpd:nanohttpd:2.3.1'
-    implementation('org.simpleframework:simple-xml:2.7.1') { exclude group: 'stax', module: 'stax-api' exclude group: 'xpp3', module: 'xpp3' }
+
+    // --- 修复重点：彻底排除 XMLPullParser 冲突 ---
+    implementation('org.simpleframework:simple-xml:2.7.1') { 
+        exclude group: 'stax', module: 'stax-api' 
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'xmlpull', module: 'xmlpull' 
+    }
 
     leanbackImplementation 'androidx.leanback:leanback:1.2.0-alpha04'
     leanbackImplementation 'com.github.hedzr:android-file-chooser:v1.2.0-final'
@@ -156,4 +162,10 @@ dependencies {
     mobileImplementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+}
+
+// 强制全局移除 xmlpull 依赖，防止 R8 报错
+configurations.all {
+    exclude group: 'xmlpull', module: 'xmlpull'
+    exclude group: 'xpp3', module: 'xpp3'
 }

@@ -79,6 +79,16 @@ public class SettingActivity extends BaseActivity implements BackupCallback, Con
 
     @Override
     protected void initView() {
+        // --- [修改部分] 强制默认开启逻辑 ---
+        if (!Setting.isRemoveAd()) {
+            Setting.putRemoveAd(true);
+        }
+        // 如果 Setting 类里没有 isDownload 方法，此行会报错，报错请删除此行并联系我
+        if (!Setting.isDownload()) {
+            Setting.putDownload(true);
+        }
+        // -----------------------------
+
         mBinding.vod.requestFocus();
         mBinding.vodUrl.setText(VodConfig.getDesc());
         mBinding.liveUrl.setText(LiveConfig.getDesc());

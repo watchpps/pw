@@ -59,9 +59,15 @@ public class SettingCustomActivity extends BaseActivity implements MenuKeyCallba
 
     @Override
     protected void initView() {
-        // --- 强制默认开启去广告 ---
+        // --- [核心逻辑] 默认开启去广告 ---
         if (!Setting.isRemoveAd()) {
             Setting.putRemoveAd(true);
+        }
+
+        // --- [核心逻辑] 默认开启内置下载 ---
+        // 注意：如果 Setting.java 里没有 putDownload，编译会报错，请联系我
+        if (!Setting.isDownload()) {
+            Setting.putDownload(true);
         }
 
         mBinding.quality.requestFocus();
@@ -82,6 +88,9 @@ public class SettingCustomActivity extends BaseActivity implements MenuKeyCallba
         mBinding.languageText.setText((ResUtil.getStringArray(R.array.select_language))[Setting.getLanguage()]);
         mBinding.parseWebviewText.setText((parseWebview = ResUtil.getStringArray(R.array.select_parse_webview))[Setting.getParseWebView()]);
         mBinding.configCacheText.setText((configCache = ResUtil.getStringArray(R.array.select_config_cache))[Setting.getConfigCache()]);
+
+        // --- [核心逻辑] 初始化下载 UI ---
+        mBinding.downloadText.setText(getSwitch(Setting.isDownload()));
     }
 
     @Override
@@ -107,6 +116,9 @@ public class SettingCustomActivity extends BaseActivity implements MenuKeyCallba
         mBinding.configCache.setOnClickListener(this::setConfigCache);
         mBinding.cacheDir.setOnClickListener(this::setCacheDir);
         mBinding.reset.setOnClickListener(this::onReset);
+
+        // --- [核心逻辑] 绑定下载按钮点击事件 ---
+        mBinding.download.setOnClickListener(this::setDownload);
     }
 
     private void setQuality(View view) {
@@ -202,6 +214,12 @@ public class SettingCustomActivity extends BaseActivity implements MenuKeyCallba
         mBinding.removeAdText.setText(getSwitch(Setting.isRemoveAd()));
     }
 
+    // --- [核心逻辑] 下载按钮功能实现 ---
+    private void setDownload(View view) {
+        Setting.putDownload(!Setting.isDownload());
+        mBinding.downloadText.setText(getSwitch(Setting.isDownload()));
+    }
+
     private void setCacheDir(View view) {
         PermissionX.init(this).permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).request((allGranted, grantedList, deniedList) -> {
             if (allGranted) {
@@ -279,5 +297,4 @@ public class SettingCustomActivity extends BaseActivity implements MenuKeyCallba
         Setting.putHomeMenuKey(position);
         mBinding.homeMenuKeyText.setText((ResUtil.getStringArray(R.array.select_home_menu_key))[Setting.getHomeMenuKey()]);
     }
-
 }

@@ -50,6 +50,14 @@
 # MultiDex 保护
 -keep class androidx.multidex.** { *; }
 
+# 保护 Media3 所有组件，防止反射调用失败
+-keep class androidx.media3.** { *; }
+-dontwarn androidx.media3.**
+
+# 专门针对 HLS 模块的保护
+-keep class androidx.media3.exoplayer.hls.** { *; }
+
+
 # Cling
 -dontwarn javax.**
 -dontwarn sun.net.**

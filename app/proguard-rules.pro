@@ -5,39 +5,37 @@
 -dontpreverify
 -verbose
 -ignorewarnings
--keepattributes Signature,Exceptions,*Annotation*,InnerClasses
+-keepattributes Signature,Exceptions,*Annotation*,InnerClasses,EnclosingMethod
 
-# --- 2. TV 核心业务与服务器 (解决下载消失、服务器启动失败) ---
+# --- 2. 解决黑屏：必须保留 ExoPlayer 渲染器及工厂类 ---
+# 黑屏通常是因为 R8 删除了反射调用的构造函数
+-keep class androidx.media3.exoplayer.video.VideoRenderer { *; }
+-keep class androidx.media3.exoplayer.video.MediaCodecVideoRenderer { *; }
+-keep class androidx.media3.exoplayer.RenderersFactory { *; }
+-keep class androidx.media3.exoplayer.DefaultRenderersFactory { *; }
+-keep class androidx.media3.exoplayer.mediacodec.MediaCodecSelector { *; }
+-keep class androidx.media3.ui.** { *; }
+-keep class androidx.media3.common.** { *; }
+-keep class com.github.anilbeesetti.nextlib.** { *; }
+
+# --- 3. 找回下载功能与配置：保护业务核心 ---
+-keep class com.fongmi.android.tv.BuildConfig { *; }
 -keep class com.fongmi.android.tv.bean.** { *; }
 -keep class com.fongmi.android.tv.api.** { *; }
 -keep class com.fongmi.android.tv.server.** { *; }
 -keep class com.fongmi.android.tv.db.** { *; }
 -keep class com.fongmi.android.tv.utils.** { *; }
+-keep class com.fongmi.android.tv.utils.Prefers { *; }
+
+# 保护 Room 数据库
 -keep class androidx.room.** { *; }
 -dontwarn androidx.room.**
 
-# --- 3. Media3 / EXO 核心保护 (解决黑屏、HLS/DASH播放) ---
--keep class androidx.media3.** { *; }
--keep interface androidx.media3.** { *; }
--dontwarn androidx.media3.**
--keep class androidx.media3.exoplayer.video.VideoRenderer { *; }
--keep class androidx.media3.exoplayer.video.MediaCodecVideoRenderer { *; }
--keep class androidx.media3.ui.PlayerView { *; }
--keep class androidx.media3.ui.StyledPlayerView { *; }
-
-# --- 4. 修复编译报错：忽略缺失类警告 (关键修复点) ---
-# Cling 引用了 Android 不存在的 Swing/AWT 类
+# --- 4. 忽略编译报错 (Cling/Smbj/OkHttp) ---
 -dontwarn javax.swing.**
 -dontwarn javax.imageio.**
 -dontwarn java.awt.**
--dontwarn org.fourthline.cling.support.shared.log.impl.**
--dontwarn org.fourthline.cling.support.contentdirectory.ui.**
-
-# Smbj 引用了 Android 不存在的 GSSAPI/JGSS 类
 -dontwarn org.ietf.jgss.**
--dontwarn javax.security.auth.callback.**
-
-# 忽略系统/内部 Handler 警告
 -dontwarn sun.net.www.protocol.http.**
 -dontwarn sun.misc.**
 
@@ -57,6 +55,7 @@
 -keep class com.github.catvod.** { *; }
 -keep class com.github.catvod.crawler.** { *; }
 -keep class * extends com.github.catvod.crawler.Spider
+-dontwarn com.github.catvod.**
 
 # 其他组件
 -keep class org.fourthline.cling.** { *; }
@@ -77,5 +76,4 @@
 -keep class com.google.zxing.** { *; }
 -keep class com.tencent.smtt.** { *; }
 -keep class com.tencent.tbs.** { *; }
--keep class com.github.anilbeesetti.nextlib.** { *; }
 -keep class androidx.multidex.** { *; }

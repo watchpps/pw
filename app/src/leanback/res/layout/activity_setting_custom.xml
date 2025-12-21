@@ -28,24 +28,8 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_quality"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/qualityText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="High" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_quality" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/qualityText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="High" />
             </LinearLayout>
 
             <LinearLayout
@@ -57,26 +41,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_size"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/sizeText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="Medium" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_size" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/sizeText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="Medium" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -84,7 +51,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
-
             <LinearLayout
                 android:id="@+id/episode"
                 android:layout_width="0dp"
@@ -95,26 +61,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/player_episode"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/episodeText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="單列" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/player_episode" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/episodeText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="單列" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/speed"
                 android:layout_width="0dp"
@@ -124,36 +73,16 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/play_speed"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/speedText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="x1" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/play_speed" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/speedText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="x1" />
             </LinearLayout>
-
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
-
             <LinearLayout
                 android:id="@+id/homeUI"
                 android:layout_width="0dp"
@@ -164,26 +93,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_home_ui"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/homeUIText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="簡潔風格" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_home_ui" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/homeUIText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="簡潔風格" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/homeHistory"
                 android:layout_width="0dp"
@@ -193,26 +105,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/home_history"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/homeHistoryText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="開啟" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/home_history" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/homeHistoryText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="開啟" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -220,7 +115,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
-
             <LinearLayout
                 android:id="@+id/display"
                 android:layout_width="0dp"
@@ -231,17 +125,8 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/play_display"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/play_display" android:textColor="@color/white" android:textSize="18sp" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/homeButtons"
                 android:layout_width="0dp"
@@ -251,17 +136,8 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_home_buttons"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_home_buttons" android:textColor="@color/white" android:textSize="18sp" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -269,7 +145,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
-
             <LinearLayout
                 android:id="@+id/fullscreenMenuKey"
                 android:layout_width="0dp"
@@ -280,26 +155,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_fullscreen_menu_key"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/fullscreenMenuKeyText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="控制栏" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_fullscreen_menu_key" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/fullscreenMenuKeyText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="控制栏" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/homeSiteLock"
                 android:layout_width="0dp"
@@ -309,24 +167,8 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_home_site_lock"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/homeSiteLockText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="開啟" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_home_site_lock" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/homeSiteLockText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="開啟" />
             </LinearLayout>
         </LinearLayout>
 
@@ -335,7 +177,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
-
             <LinearLayout
                 android:id="@+id/smallWindowBackKey"
                 android:layout_width="0dp"
@@ -346,26 +187,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_small_window_back_key"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/smallWindowBackKeyText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="返回" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_small_window_back_key" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/smallWindowBackKeyText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="返回" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/incognito"
                 android:layout_width="0dp"
@@ -375,26 +199,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_incognito"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/incognitoText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="Off" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_incognito" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/incognitoText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="Off" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -402,7 +209,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
-
             <LinearLayout
                 android:id="@+id/homeMenuKey"
                 android:layout_width="0dp"
@@ -413,26 +219,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_home_menu_key"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/homeMenuKeyText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="切换站源" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_home_menu_key" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/homeMenuKeyText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="切换站源" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/aggregatedSearch"
                 android:layout_width="0dp"
@@ -442,26 +231,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_aggregated_search"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/aggregatedSearchText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="開" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_aggregated_search" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/aggregatedSearchText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="開" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -469,8 +241,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
-
-
             <LinearLayout
                 android:id="@+id/parseWebview"
                 android:layout_width="0dp"
@@ -481,26 +251,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_parse_webview"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/parseWebviewText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="System" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_parse_webview" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/parseWebviewText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="System" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/setLanguage"
                 android:layout_width="0dp"
@@ -510,24 +263,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_language"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-                <TextView
-                    android:id="@+id/languageText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="中文" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_language" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/languageText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="中文" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -535,7 +273,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
-
             <LinearLayout
                 android:id="@+id/cacheDir"
                 android:layout_width="0dp"
@@ -546,27 +283,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_cache_dir"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/cacheDirText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:singleLine="true"
-                    tools:text="/dir" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_cache_dir" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/cacheDirText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" android:singleLine="true" tools:text="/dir" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/removeAd"
                 android:layout_width="0dp"
@@ -576,26 +295,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_remove_ad"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/removeAdText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="关闭" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_remove_ad" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/removeAdText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="关闭" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -603,9 +305,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
-
             <LinearLayout
-                android:id="@+id/configCache"
+                android:id="@+id/download"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -614,26 +315,28 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_config_cache"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/configCacheText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:text="关闭" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_builtin_download" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/downloadText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="关闭" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/configCache"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_item"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_config_cache" android:textColor="@color/white" android:textSize="18sp" />
+                <TextView android:id="@+id/configCacheText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/white" android:textSize="18sp" tools:text="关闭" />
+            </LinearLayout>
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
             <LinearLayout
                 android:id="@+id/reset"
                 android:layout_width="0dp"
@@ -643,17 +346,9 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/setting_reset"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/setting_reset" android:textColor="@color/white" android:textSize="18sp" />
             </LinearLayout>
-
+            <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
         </LinearLayout>
 
     </LinearLayout>

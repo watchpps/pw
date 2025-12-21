@@ -1,19 +1,21 @@
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="http://schemas.android.com/apk/res-auto" tools:ignore="MissingTranslation">
-    <string name="app_keep">收藏</string>
-    <string name="app_history">歷史</string>
-    <string name="nav_vod">點播</string>
-    <string name="nav_live">直播</string>
-    <string name="nav_setting">設置</string>
-    <string name="vod_home">首頁</string>
-    <string name="detail_flag">線路</string>
-    <string name="detail_more">更多</string>
-    <string name="detail_download">下載</string>
-    <string name="detail_episode">選集</string>
-    <string name="detail_quality">畫質</string>
-    <string name="detail_content">詳情</string>
-    <string name="detail_search">正在搜索 <xliff:g name="name">%s</xliff:g></string>
-    <string name="control_speed">倍速</string>
-    <string name="control_scale">比例</string>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+
+    <string name="home">首頁</string>
+    <string name="home_vod">點播</string>
+    <string name="home_live">直播</string>
+    <string name="home_search">搜索</string>
+    <string name="home_keep">收藏</string>
+    <string name="home_push">推送</string>
+    <string name="home_setting">設置</string>
+    <string name="home_history_short">歷史</string>
+    <string name="home_history">最近觀看</string>
+    <string name="home_recommend">更新推薦</string>
+
+    <string name="collect_result">“<xliff:g name="name">%s</xliff:g>”的搜索結果</string>
+
+    <string name="push_clip">推送剪貼板內容</string>
+    <string name="push_info">使用手機掃描二維碼，或於瀏覽器訪問地址\n<xliff:g name="name">%s</xliff:g></string>
+
     <string name="setting_on">開啟</string>
     <string name="setting_off">關閉</string>
     <string name="setting_builtin_download">內置下載</string>
@@ -36,14 +38,5 @@
     <string name="setting_config_cache">配置緩存</string>
     <string name="setting_cache_dir">緩存目錄</string>
     <string name="setting_reset_app">重置應用</string>
-    <string name="dialog_reset_app">重置應用</string>
-    <string name="dialog_reset_app_data">確定要清除所有數據並重啟應用嗎？</string>
-    <string name="dialog_positive">確定</string>
-    <string name="dialog_negative">取消</string>
-    <string name="dialog_backed">已備份</string>
-    <string-array name="select_background">
-        <item>關閉</item>
-        <item>開啟</item>
-        <item>畫中畫</item>
-    </string-array>
+
 </resources>

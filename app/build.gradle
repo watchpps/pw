@@ -80,7 +80,7 @@ android {
             outputFileName = "TVBox_${mode}_${api}_Universal_${variant.versionName}.apk"
         }
     }
-} // --- 核心修复 3：这里必须有关闭 android 的大括号 ---
+} 
 
 dependencies {
     // --- 核心修复 4：添加分包依赖库 ---
@@ -111,8 +111,12 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.6.1'
     implementation 'androidx.media:media:1.7.0'
 
+    // --- 核心修复 6：补充 HLS/DASH/RTSP 播放组件 ---
     def media3_version = "1.4.1"
     implementation "androidx.media3:media3-exoplayer:$media3_version"
+    implementation "androidx.media3:media3-exoplayer-hls:$media3_version"
+    implementation "androidx.media3:media3-exoplayer-dash:$media3_version"
+    implementation "androidx.media3:media3-exoplayer-rtsp:$media3_version"
     implementation "androidx.media3:media3-ui:$media3_version" 
     implementation "androidx.media3:media3-common:$media3_version"
     implementation "androidx.media3:media3-session:$media3_version"

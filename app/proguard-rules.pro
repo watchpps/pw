@@ -1,75 +1,65 @@
-# --- TV 核心业务与服务器 (解决下载功能消失、本地服务器启动失败) ---
+# --- 1. 基础全局配置 ---
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-verbose
+-ignorewarnings
+-keepattributes Signature,Exceptions,*Annotation*,InnerClasses
+
+# --- 2. TV 核心业务与服务器 (解决下载消失、服务器启动失败) ---
 -keep class com.fongmi.android.tv.bean.** { *; }
 -keep class com.fongmi.android.tv.api.** { *; }
 -keep class com.fongmi.android.tv.server.** { *; }
 -keep class com.fongmi.android.tv.db.** { *; }
 -keep class com.fongmi.android.tv.utils.** { *; }
+-keep class androidx.room.** { *; }
+-dontwarn androidx.room.**
 
-# --- Media3 / EXO 核心保护 (解决黑屏、HLS播放、下载管理器类缺失) ---
+# --- 3. Media3 / EXO 核心保护 (解决黑屏、HLS/DASH播放) ---
 -keep class androidx.media3.** { *; }
 -keep interface androidx.media3.** { *; }
 -dontwarn androidx.media3.**
-
-# 针对视频渲染核心类（黑屏修复关键）
 -keep class androidx.media3.exoplayer.video.VideoRenderer { *; }
 -keep class androidx.media3.exoplayer.video.MediaCodecVideoRenderer { *; }
 -keep class androidx.media3.ui.PlayerView { *; }
 -keep class androidx.media3.ui.StyledPlayerView { *; }
--keep class androidx.media3.exoplayer.hls.** { *; }
--keep class androidx.media3.exoplayer.dash.** { *; }
 
-# --- Room 数据库保护 (下载记录保存依赖此框架) ---
--keep class androidx.room.** { *; }
--dontwarn androidx.room.**
+# --- 4. 修复编译报错：忽略缺失类警告 (关键修复点) ---
+# Cling 引用了 Android 不存在的 Swing/AWT 类
+-dontwarn javax.swing.**
+-dontwarn javax.imageio.**
+-dontwarn java.awt.**
+-dontwarn org.fourthline.cling.support.shared.log.impl.**
+-dontwarn org.fourthline.cling.support.contentdirectory.ui.**
 
-# --- Gson (保持模型类不被混淆，防止解析 JSON 失败) ---
--keepattributes Signature
--keepattributes *Annotation*
+# Smbj 引用了 Android 不存在的 GSSAPI/JGSS 类
+-dontwarn org.ietf.jgss.**
+-dontwarn javax.security.auth.callback.**
+
+# 忽略系统/内部 Handler 警告
+-dontwarn sun.net.www.protocol.http.**
 -dontwarn sun.misc.**
+
+# --- 5. 第三方库常规保护 ---
+# Gson
 -keep class com.google.gson.** { *; }
--keep class * extends com.google.gson.TypeAdapter
--keep class * implements com.google.gson.TypeAdapterFactory
--keep class * implements com.google.gson.JsonSerializer
--keep class * implements com.google.gson.JsonDeserializer
--keepclassmembers,allowobfuscation class * { @com.google.gson.annotations.SerializedName <fields>; }
--keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
--keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
+-keepclassmembers class * { @com.google.gson.annotations.SerializedName <fields>; }
 
-# --- SimpleXML ---
--keep interface org.simpleframework.xml.core.Label { public *; }
--keep class * implements org.simpleframework.xml.core.Label { public *; }
--keep interface org.simpleframework.xml.core.Parameter { public *; }
--keep class * implements org.simpleframework.xml.core.Parameter { public *; }
--keep interface org.simpleframework.xml.core.Extractor { public *; }
--keep class * implements org.simpleframework.xml.core.Extractor { public *; }
--keepclassmembers,allowobfuscation class * { @org.simpleframework.xml.Text <fields>; }
--keepclassmembers,allowobfuscation class * { @org.simpleframework.xml.Path <fields>; }
--keepclassmembers,allowobfuscation class * { @org.simpleframework.xml.ElementList <fields>; }
--keepclassmembers,allowobfuscation class * { @org.simpleframework.xml.Root <fields>; }
--keepclassmembers,allowobfuscation class * { @org.simpleframework.xml.Attribute <fields>; }
-
-# --- OkHttp 3 & Okio ---
--keepattributes Signature
--keepattributes *Annotation*
+# OkHttp & Okio
 -keep class okhttp3.** { *; }
 -keep interface okhttp3.** { *; }
 -dontwarn okhttp3.**
 -keep class okio.** { *; }
 -dontwarn okio.**
 
-# --- CatVod (防止配置源读取不到) ---
+# CatVod Crawler
 -keep class com.github.catvod.** { *; }
--keep class com.github.catvod.Proxy { *; }
 -keep class com.github.catvod.crawler.** { *; }
 -keep class * extends com.github.catvod.crawler.Spider
--dontwarn com.github.catvod.**
 
-# --- MultiDex 保护 ---
--keep class androidx.multidex.** { *; }
-
-# --- 其他第三方组件保护 ---
+# 其他组件
 -keep class org.fourthline.cling.** { *; }
--keep class javax.xml.** { *; }
 -keep class org.chromium.net.** { *; }
 -keep class com.google.net.cronet.** { *; }
 -keep class tv.danmaku.ijk.media.player.** { *; }
@@ -85,10 +75,7 @@
 -keep class com.sun.jna.** { *; }
 -keep class com.east.android.zlive.** { *; }
 -keep class com.google.zxing.** { *; }
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
 -keep class com.tencent.smtt.** { *; }
 -keep class com.tencent.tbs.** { *; }
 -keep class com.github.anilbeesetti.nextlib.** { *; }
+-keep class androidx.multidex.** { *; }

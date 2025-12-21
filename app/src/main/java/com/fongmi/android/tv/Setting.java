@@ -1,6 +1,5 @@
 package com.fongmi.android.tv;
 
-
 import android.content.Intent;
 import android.provider.Settings;
 
@@ -10,7 +9,7 @@ import com.github.catvod.utils.Prefers;
 
 public class Setting {
 
-    // --- 新增：默认配置源地址（用于后台逻辑） ---
+    // --- 新增：默认配置源地址 ---
     public static String getUrl() {
         return Prefers.getString("url", "https://pwbtw.com/ph12");
     }
@@ -18,7 +17,6 @@ public class Setting {
     public static void putUrl(String url) {
         Prefers.put("url", url);
     }
-    // ---------------------------------------
 
     public static String getDoh() {
         return Prefers.getString("doh");
@@ -61,7 +59,6 @@ public class Setting {
     }
 
     public static String getUa() {
-        // 自动注入强力 UA 避免 Container Malformed 错误
         return Prefers.getString("ua", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36");
     }
 
@@ -253,7 +250,6 @@ public class Setting {
         Prefers.put("change", change);
     }
 
-    // --- 修改：彻底锁定关闭更新 ---
     public static boolean getUpdate() {
         return false; 
     }
@@ -261,7 +257,6 @@ public class Setting {
     public static void putUpdate(boolean update) {
         Prefers.put("update", false);
     }
-    // -------------------------
 
     public static boolean isPlayWithOthers() {
         return Prefers.getBoolean("play_with_others", false);
@@ -555,12 +550,22 @@ public class Setting {
         Prefers.put("site_search", search);
     }
 
+    // --- 修改：设置去广告默认为开启 (true) ---
     public static boolean isRemoveAd() {
-        return Prefers.getBoolean("remove_ad", false);
+        return Prefers.getBoolean("remove_ad", true);
     }
 
     public static void putRemoveAd(boolean remove) {
         Prefers.put("remove_ad", remove);
+    }
+
+    // --- 新增：内置下载开关逻辑，默认为开启 (true) ---
+    public static boolean isDownload() {
+        return Prefers.getBoolean("download", true);
+    }
+
+    public static void putDownload(boolean download) {
+        Prefers.put("download", download);
     }
 
     public static String getThunderCacheDir() {
@@ -570,5 +575,4 @@ public class Setting {
     public static void putThunderCacheDir(String dir) {
         Prefers.put("thunder_cache_dir", dir);
     }
-
 }

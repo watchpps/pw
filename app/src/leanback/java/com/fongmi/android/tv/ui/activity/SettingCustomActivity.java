@@ -59,6 +59,11 @@ public class SettingCustomActivity extends BaseActivity implements MenuKeyCallba
 
     @Override
     protected void initView() {
+        // --- 强制默认开启去广告 ---
+        if (!Setting.isRemoveAd()) {
+            Setting.putRemoveAd(true);
+        }
+
         mBinding.quality.requestFocus();
         mBinding.qualityText.setText((quality = ResUtil.getStringArray(R.array.select_quality))[Setting.getQuality()]);
         mBinding.sizeText.setText((size = ResUtil.getStringArray(R.array.select_size))[Setting.getSize()]);

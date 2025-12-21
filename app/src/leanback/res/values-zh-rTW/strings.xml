@@ -1,4 +1,10 @@
-<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_keep">收藏</string>
+    <string name="app_history">歷史</string>
+    <string name="nav_vod">點播</string>
+    <string name="nav_live">直播</string>
+    <string name="nav_setting">設置</string>
 
     <string name="home">首頁</string>
     <string name="home_vod">點播</string>
@@ -11,16 +17,27 @@
     <string name="home_history">最近觀看</string>
     <string name="home_recommend">更新推薦</string>
 
-    <string name="nav_setting">設置</string>
     <string name="detail_episode">選集</string>
     <string name="detail_flag">線路</string>
     <string name="detail_more">更多</string>
     <string name="detail_download">下載</string>
     <string name="detail_quality">畫質</string>
+    <string name="control_speed">倍速</string>
+    <string name="control_scale">比例</string>
+    <string name="control_track">音軌</string>
+    <string name="control_display">顯示</string>
+    <string name="control_other">其他</string>
+
+    <string name="device_select">選擇設備</string>
+    <string name="device_scan">請掃碼綁定設備</string>
+    <string name="transmit_apk">推送安裝包</string>
+    <string name="transmit_vod_config">推送配置</string>
+    <string name="transmit_wall_config">推送桌布</string>
+    <string name="transmit_push_restore">數據備份</string>
 
     <string name="collect_result">“<xliff:g name="name">%s</xliff:g>”的搜索結果</string>
 
-    <string name="push_clip">推送剪貼板內容</string>
+    <string name="push_clip">推送剪貼簿內容</string>
     <string name="push_info">使用手機掃描二維碼，或於瀏覽器訪問地址\n<xliff:g name="name">%s</xliff:g></string>
 
     <string name="timer_delay">增加5分鐘</string>
@@ -42,7 +59,7 @@
     <string name="setting_home_site_lock">首頁鎖定</string>
     <string name="setting_incognito">無痕模式</string>
     <string name="setting_small_window_back_key">小窗口返回</string>
-    <string name="setting_home_menu_key">首頁菜單</string>
+    <string name="setting_home_menu_key">首頁菜單鍵</string>
     <string name="setting_aggregated_search">聚合搜索</string>
     <string name="setting_home_ui">首頁樣式</string>
     <string name="setting_home_buttons">首頁按鈕</string>
